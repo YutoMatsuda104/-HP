@@ -1,0 +1,25 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import ProjectCard from '../../components/ProjectCard.astro';
+import { getProjects } from '../../lib';
+
+const projects = await getProjects();
+---
+
+<Base title="研究・活動" description="研究、論文、コンペティションなどの取り組みと実績。">
+  <div class="container">
+    <PageHeader eyebrow="Projects" title="研究・活動" lead="これまでに取り組んだ研究、論文、コンペティションなどです。" />
+    <div class="project-grid">
+      {projects.map((p) => <ProjectCard project={p} />)}
+    </div>
+  </div>
+</Base>
+
+<style>
+  .project-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+</style>

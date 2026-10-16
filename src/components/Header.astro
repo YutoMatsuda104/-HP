@@ -1,25 +1,28 @@
 ---
+import { pages } from '../nav';
+
 interface Props {
   brand: string;
 }
 const { brand } = Astro.props;
-
-// ナビゲーションの項目。トップページの各セクションへのリンクです。
-const nav = [
-  { href: '/#about', label: 'About' },
-  { href: '/#experience', label: 'Experience' },
-  { href: '/#projects', label: 'Projects' },
-  { href: '/#skills', label: 'Skills' },
-  { href: '/#contact', label: 'Contact' },
-];
+const current = Astro.url.pathname;
+const isCurrent = (href: string) => current === href || current.startsWith(href);
 ---
 
 <header class="site-header">
   <div class="container inner">
-    <a class="brand" href="/">{brand}</a>
+    <a class="brand" href="/" aria-current={current === '/' ? 'page' : undefined}>{brand}</a>
     <nav aria-label="メインナビゲーション">
       <ul>
-        {nav.map((item) => <li><a href={item.href}>{item.label}</a></li>)}
+        {
+          pages.map((p) => (
+            <li>
+              <a href={p.href} aria-current={isCurrent(p.href) ? 'page' : undefined}>
+                {p.label}
+              </a>
+            </li>
+          ))
+        }
       </ul>
     </nav>
   </div>
@@ -30,15 +33,14 @@ const nav = [
     position: sticky;
     top: 0;
     z-index: 50;
-    height: var(--header-h);
-    background: color-mix(in srgb, var(--bg) 85%, transparent);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
     backdrop-filter: saturate(180%) blur(14px);
     -webkit-backdrop-filter: saturate(180%) blur(14px);
-    border-bottom: 1px solid color-mix(in srgb, var(--line) 70%, transparent);
+    border-bottom: 1px solid var(--line);
   }
 
   .inner {
-    height: 100%;
+    min-height: var(--header-h);
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -65,12 +67,12 @@ const nav = [
 
   nav ul {
     display: flex;
-    gap: 4px;
+    gap: 2px;
   }
 
   nav a {
     display: block;
-    padding: 6px 10px;
+    padding: 6px 12px;
     border-radius: 8px;
     color: var(--muted);
     text-decoration: none;
@@ -83,19 +85,28 @@ const nav = [
     background: var(--accent-soft);
   }
 
-  /* スマートフォンでは名前を隠してナビゲーションを優先 */
-  @media (max-width: 639px) {
-    .brand {
-      display: none;
+  nav a[aria-current='page'] {
+    color: var(--text);
+    font-weight: 600;
+    background: var(--accent-soft);
+  }
+
+  /* スマートフォンでは名前とメニューを2段にする */
+  @media (max-width: 720px) {
+    .inner {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      padding-top: 10px;
     }
 
-    .inner {
-      justify-content: center;
-      padding-inline: 8px;
+    nav {
+      margin-inline: -12px;
+      padding-bottom: 6px;
     }
 
     nav a {
-      padding: 6px 8px;
+      padding: 6px 12px;
       font-size: 0.8125rem;
     }
   }

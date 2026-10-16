@@ -5,8 +5,11 @@ import { formatPeriod, hasDetail } from '../lib';
 
 interface Props {
   project: CollectionEntry<'projects'>;
+  /** 見出しのレベル(ページ内の構造に合わせる) */
+  headingLevel?: 2 | 3;
 }
-const { project } = Astro.props;
+const { project, headingLevel = 2 } = Astro.props;
+const Heading = headingLevel === 2 ? 'h2' : 'h3';
 const d = project.data;
 const detail = hasDetail(project);
 const period = formatPeriod(d.start, d.end);
@@ -27,9 +30,9 @@ const meta = [d.category, period].filter(Boolean).join(' ・ ');
   }
   <div class="content">
     {meta && <p class="meta">{meta}</p>}
-    <h3 class="title">
+    <Heading class="title">
       {detail ? <a href={`/projects/${project.id}/`}>{d.title}</a> : d.title}
-    </h3>
+    </Heading>
     {d.result && <p class="result">{d.result}</p>}
     {(d.venue || d.role) && <p class="role">{[d.venue, d.role].filter(Boolean).join(' ・ ')}</p>}
     {d.summary && <p class="summary">{d.summary}</p>}

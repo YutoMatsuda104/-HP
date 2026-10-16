@@ -1,0 +1,73 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getProfile } from '../lib';
+
+const profile = await getProfile();
+---
+
+<Base title="連絡先" description={`${profile.name}への連絡先です。`}>
+  <div class="container">
+    <PageHeader eyebrow="Contact" title="連絡先" lead="ご連絡は、以下のメールアドレスまでお願いいたします。" />
+    <dl class="contact">
+      {
+        profile.email && (
+          <div>
+            <dt>メール</dt>
+            <dd class="email">
+              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            </dd>
+          </div>
+        )
+      }
+      {
+        profile.github && (
+          <div>
+            <dt>GitHub</dt>
+            <dd>
+              <a href={profile.github}>{profile.github.replace(/^https?:\/\//, '')}</a>
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+  </div>
+</Base>
+
+<style>
+  .contact {
+    margin: 0;
+    border-top: 1px solid var(--line);
+    max-width: var(--measure);
+  }
+
+  .contact > div {
+    display: grid;
+    gap: 4px;
+    padding-block: 20px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .contact dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .contact dd {
+    margin: 0;
+    word-break: break-all;
+  }
+
+  .email {
+    font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);
+    font-weight: 600;
+  }
+
+  @media (min-width: 640px) {
+    .contact > div {
+      grid-template-columns: 8rem 1fr;
+      align-items: baseline;
+      gap: 24px;
+    }
+  }
+</style>

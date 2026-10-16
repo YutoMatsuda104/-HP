@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import { getProfile } from '../lib';
+import { pages } from '../nav';
 
 interface Props {
   /** ページ固有のタイトル(トップページでは省略) */
@@ -66,6 +67,18 @@ const jsonLd = isHome
       <slot />
     </main>
     <footer class="site-footer">
+      <div class="container footer-inner">
+        <div>
+          <p class="footer-name">{profile.name}</p>
+          {profile.email && <p><a href={`mailto:${profile.email}`}>{profile.email}</a></p>}
+        </div>
+        <nav aria-label="フッターナビゲーション">
+          <ul>
+            <li><a href="/">ホーム</a></li>
+            {pages.map((p) => <li><a href={p.href}>{p.label}</a></li>)}
+          </ul>
+        </nav>
+      </div>
       <div class="container">
         <small>© {new Date().getFullYear()} {profile.name}</small>
       </div>
@@ -75,9 +88,39 @@ const jsonLd = isHome
 
 <style>
   .site-footer {
+    margin-top: 96px;
     border-top: 1px solid var(--line);
-    padding-block: 32px 40px;
+    padding-block: 40px;
     color: var(--muted);
-    font-size: 0.8125rem;
+    font-size: 0.875rem;
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 32px;
+  }
+
+  .footer-name {
+    color: var(--text);
+    font-weight: 700;
+  }
+
+  .site-footer a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .site-footer a:hover {
+    color: var(--accent);
+    text-decoration: underline;
+  }
+
+  .site-footer ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px 20px;
   }
 </style>

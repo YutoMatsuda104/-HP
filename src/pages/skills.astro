@@ -1,0 +1,118 @@
+---
+import { getEntry } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { formatYm } from '../lib';
+
+const skills = (await getEntry('skills', 'skills'))?.data;
+---
+
+<Base title="スキル" description="専門分野、技術、資格。">
+  <div class="container">
+    <PageHeader eyebrow="Skills" title="スキル" />
+    {
+      skills && skills.groups.length > 0 && (
+        <dl class="skill-list">
+          {skills.groups.map((g) => (
+            <div class="skill-row">
+              <dt>{g.name}</dt>
+              <dd>
+                <ul class="skill-items">
+                  {g.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+                {g.note && <p class="muted note">{g.note}</p>}
+              </dd>
+            </div>
+          ))}
+        </dl>
+      )
+    }
+    {
+      skills && skills.certifications.length > 0 && (
+        <section class="certs" aria-labelledby="certs-title">
+          <h2 id="certs-title" class="certs-title">資格</h2>
+          <ul>
+            {skills.certifications.map((c) => (
+              <li>
+                <span>{c.name}</span>
+                {c.date && <span class="muted cert-date">{formatYm(c.date)} 取得</span>}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )
+    }
+  </div>
+</Base>
+
+<style>
+  .skill-list {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .skill-row {
+    display: grid;
+    gap: 6px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-row dt {
+    font-weight: 700;
+  }
+
+  .skill-row dd {
+    margin: 0;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0;
+  }
+
+  .skill-items li:not(:last-child)::after {
+    content: '/';
+    margin-inline: 0.6em;
+    color: var(--muted);
+    opacity: 0.5;
+  }
+
+  @media (min-width: 768px) {
+    .skill-row {
+      grid-template-columns: 11rem 1fr;
+      gap: 32px;
+    }
+  }
+
+  .certs {
+    margin-top: 64px;
+  }
+
+  .certs-title {
+    font-size: 1.25rem;
+    margin-bottom: 16px;
+  }
+
+  .certs li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 16px;
+    padding-block: 12px;
+    border-bottom: 1px solid var(--line);
+    max-width: var(--measure);
+  }
+
+  .certs ul {
+    border-top: 1px solid var(--line);
+  }
+
+  .cert-date {
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+</style>

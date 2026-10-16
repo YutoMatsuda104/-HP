@@ -1,0 +1,146 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { getProfile } from '../lib';
+
+const profile = await getProfile();
+const about = await getEntry('about', 'about');
+if (!about) throw new Error('src/content/about.md が見つかりません');
+const { Content } = await render(about);
+const { specialties, goal, future } = about.data;
+---
+
+<Base title="自己紹介" description={profile.intro}>
+  <div class="container">
+    <PageHeader eyebrow="About" title="自己紹介" />
+    <div class="about-grid">
+      <div>
+        {
+          profile.motto && (
+            <blockquote class="motto">
+              <p>「{profile.motto}」</p>
+            </blockquote>
+          )
+        }
+        <div class="prose"><Content /></div>
+        {
+          future && (
+            <section class="future" aria-labelledby="future-title">
+              <h2 id="future-title">これから</h2>
+              <p>{future}</p>
+            </section>
+          )
+        }
+      </div>
+      <aside class="facts" aria-label="プロフィール概要">
+        <dl>
+          <div>
+            <dt>氏名</dt>
+            <dd>{profile.name}{profile.nameEn && <span class="muted">({profile.nameEn})</span>}</dd>
+          </div>
+          {
+            profile.affiliation && (
+              <div>
+                <dt>所属</dt>
+                <dd>{profile.affiliation}</dd>
+              </div>
+            )
+          }
+          {
+            specialties.length > 0 && (
+              <div>
+                <dt>専門</dt>
+                <dd>{specialties.join(' / ')}</dd>
+              </div>
+            )
+          }
+          {
+            goal && (
+              <div>
+                <dt>目標</dt>
+                <dd>{goal}</dd>
+              </div>
+            )
+          }
+        </dl>
+        <p class="links"><a href="/experience/">経歴を見る →</a></p>
+      </aside>
+    </div>
+  </div>
+</Base>
+
+<style>
+  .about-grid {
+    display: grid;
+    gap: 48px;
+  }
+
+  .motto {
+    margin: 0 0 32px;
+    padding-left: 18px;
+    border-left: 3px solid var(--accent);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+
+  .future {
+    margin-top: 56px;
+    max-width: var(--measure);
+  }
+
+  .future h2 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+  }
+
+  .facts dl {
+    margin: 0;
+    display: grid;
+    gap: 20px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .facts dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .facts dd {
+    margin: 2px 0 0;
+    line-height: 1.7;
+  }
+
+  .facts .muted {
+    margin-left: 0.4em;
+    font-size: 0.875rem;
+  }
+
+  .links {
+    margin-top: 16px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .links a {
+    text-decoration: none;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .facts {
+      position: sticky;
+      top: calc(var(--header-h) + 32px);
+    }
+  }
+</style>
