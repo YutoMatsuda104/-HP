@@ -4,5 +4,5 @@ export const pages = [
   { href: '/experience/', label: '経歴', en: 'Experience', description: '学歴と職歴・活動の歩み' },
   { href: '/projects/', label: '研究・活動', en: 'Projects', description: '研究、論文、コンペティションなどの実績' },
   { href: '/skills/', label: 'スキル', en: 'Skills', description: '専門分野、技術、資格' },
-  { href: '/contact/', label: '連絡先', en: 'Contact', description: 'メールアドレスとGitHub' },
+  { href: '/contact/', label: '連絡先', en: 'Contact', description: 'メールアドレス、GitHub、Wantedly' },
 ];

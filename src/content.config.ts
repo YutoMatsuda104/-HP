@@ -32,6 +32,7 @@ const profile = defineCollection({
       motto: z.string().optional(),
       email: z.string().optional(),
       github: z.string().optional(),
+      wantedly: z.string().optional(),
       photo: image().optional(),
       photoAlt: z.string().optional(),
       siteDescription: z.string(),

@@ -45,3 +45,8 @@ export const kindLabel = {
   paper: { ja: '論文・発表', en: 'Publication' },
   activity: { ja: '活動・受賞', en: 'Activity' },
 } as const;
+
+/** 迷惑メール対策: @ を [at] に置き換えた表示用のメールアドレス */
+export function obfuscateEmail(email: string) {
+  return email.replace('@', '[at]');
+}

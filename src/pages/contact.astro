@@ -1,9 +1,10 @@
 ---
 import Base from '../layouts/Base.astro';
 import PageHeader from '../components/PageHeader.astro';
-import { getProfile } from '../lib';
+import { getProfile, obfuscateEmail } from '../lib';
 
 const profile = await getProfile();
+const shortUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
 ---
 
 <Base title="連絡先" description={`${profile.name}への連絡先です。`}>
@@ -14,8 +15,9 @@ const profile = await getProfile();
         profile.email && (
           <div>
             <dt>メール</dt>
-            <dd class="email">
-              <a href={`mailto:${profile.email}`}>{profile.email}</a>
+            <dd>
+              <span class="email">{obfuscateEmail(profile.email)}</span>
+              <p class="note">迷惑メール対策のため「@」を「[at]」と表記しています。送信の際は [at] を @ に変えてください。</p>
             </dd>
           </div>
         )
@@ -25,7 +27,17 @@ const profile = await getProfile();
           <div>
             <dt>GitHub</dt>
             <dd>
-              <a href={profile.github}>{profile.github.replace(/^https?:\/\//, '')}</a>
+              <a href={profile.github}>{shortUrl(profile.github)}</a>
+            </dd>
+          </div>
+        )
+      }
+      {
+        profile.wantedly && (
+          <div>
+            <dt>Wantedly</dt>
+            <dd>
+              <a href={profile.wantedly}>{shortUrl(profile.wantedly)}</a>
             </dd>
           </div>
         )
@@ -61,6 +73,15 @@ const profile = await getProfile();
   .email {
     font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);
     font-weight: 600;
+    font-family: var(--font-num);
+  }
+
+  .note {
+    margin-top: 8px;
+    font-size: 0.8125rem;
+    line-height: 1.7;
+    color: var(--muted);
+    word-break: normal;
   }
 
   @media (min-width: 640px) {

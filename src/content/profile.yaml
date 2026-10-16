@@ -31,11 +31,14 @@ now:
 # 大切にしている言葉(自己紹介の冒頭に表示)
 motto: 努力は実りづらいが人生は素晴らしい
 
-# 公開用メールアドレス(クリックするとメールアプリが開きます)
+# 公開用メールアドレス(迷惑メール対策のため、サイト上では @ を [at] に置き換えて表示します)
 email: yuto.matsuda16@gmail.com
 
 # GitHub(連絡先の欄に表示。載せない場合は行頭に # を付ける)
 github: https://github.com/YutoMatsuda104
+
+# Wantedly(連絡先の欄に表示。載せない場合は行頭に # を付ける)
+wantedly: https://www.wantedly.com/id/yuu_matsuda_aaa
 
 # プロフィール写真(src/content/images/ に置いたファイル)
 # 写真を変えるときは、同じ名前で上書きするか、ここのファイル名を変更します。

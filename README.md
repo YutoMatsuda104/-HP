@@ -15,7 +15,7 @@
 | 研究・活動 `/projects/` | 研究・論文・コンペなどの一覧 | `projects/*.md` |
 | 研究・活動の詳細 `/projects/〇〇/` | 本文が書かれたものだけ自動で作られます | `projects/*.md` |
 | スキル `/skills/` | 専門分野・技術・資格 | `skills.yaml` |
-| 連絡先 `/contact/` | メールアドレス、GitHub | `profile.yaml` |
+| 連絡先 `/contact/` | メールアドレス([at]表記)、GitHub、Wantedly | `profile.yaml` |
 
 ヘッダーとフッターのメニューは `src/nav.ts` で管理しています。
 
@@ -151,7 +151,10 @@ work:
 
 ## ⑪ メールアドレスの変更方法
 
-`src/content/profile.yaml` の `email:` を書き換えます。
+`src/content/profile.yaml` の `email:` を書き換えます(普通に `@` で書いてください)。
+サイト上では迷惑メール対策のため、自動で `@` を `[at]` に置き換えて表示し、メールのリンクも付けません。
+
+GitHub・Wantedlyも同じファイルの `github:`・`wantedly:` で変更できます。載せない場合は行頭に `#` を付けます。
 
 ## ⑫ 更新内容を公開する方法
 

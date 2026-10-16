@@ -1,7 +1,7 @@
 ---
 import '../styles/global.css';
 import Header from '../components/Header.astro';
-import { getProfile } from '../lib';
+import { getProfile, obfuscateEmail } from '../lib';
 import { pages } from '../nav';
 
 interface Props {
@@ -70,7 +70,7 @@ const jsonLd = isHome
       <div class="container footer-inner">
         <div>
           <p class="footer-name">{profile.name}</p>
-          {profile.email && <p><a href={`mailto:${profile.email}`}>{profile.email}</a></p>}
+          {profile.email && <p>{obfuscateEmail(profile.email)}</p>}
         </div>
         <nav aria-label="フッターナビゲーション">
           <ul>
