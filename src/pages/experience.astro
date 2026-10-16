@@ -8,8 +8,8 @@ const experience = (await getEntry('experience', 'experience'))?.data;
 ---
 
 <Base title="経歴" description="学歴と職歴・活動の歩み。">
+  <PageHeader eyebrow="Experience" title="経歴" />
   <div class="container">
-    <PageHeader eyebrow="Experience" title="経歴" />
     {experience && experience.education.length > 0 && <Timeline heading="学歴" items={experience.education} />}
     {experience && experience.work.length > 0 && <Timeline heading="職歴・活動" items={experience.work} />}
   </div>

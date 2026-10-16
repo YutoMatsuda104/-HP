@@ -1,6 +1,10 @@
 ---
 title: グループワークにおける参加者各個人の全体に対する寄与度の自動数理モデル
 category: 研究
+kind: research
+featured: true
+cover: ../images/rd-challenge.jpg
+coverAlt: 第3回 R&D Challengeの発表会での集合写真
 result: 第3回 R&D Challenge 優秀賞
 summary: グループディスカッションにおける参加者の寄与度を、発話やキーワードの重要性、感情分析などの特徴量をもとに数値化する数理モデルを構築しています。
 tech:

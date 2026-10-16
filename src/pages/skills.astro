@@ -8,111 +8,106 @@ const skills = (await getEntry('skills', 'skills'))?.data;
 ---
 
 <Base title="スキル" description="専門分野、技術、資格。">
+  <PageHeader eyebrow="Skills" title="スキル" lead="これまでの学びと実務で身につけてきた分野と、取得した資格です。" />
   <div class="container">
-    <PageHeader eyebrow="Skills" title="スキル" />
-    {
-      skills && skills.groups.length > 0 && (
-        <dl class="skill-list">
-          {skills.groups.map((g) => (
-            <div class="skill-row">
-              <dt>{g.name}</dt>
-              <dd>
-                <ul class="skill-items">
-                  {g.items.map((item) => (
-                    <li>{item}</li>
-                  ))}
-                </ul>
-                {g.note && <p class="muted note">{g.note}</p>}
-              </dd>
-            </div>
-          ))}
-        </dl>
-      )
-    }
-    {
-      skills && skills.certifications.length > 0 && (
-        <section class="certs" aria-labelledby="certs-title">
-          <h2 id="certs-title" class="certs-title">資格</h2>
-          <ul>
-            {skills.certifications.map((c) => (
-              <li>
-                <span>{c.name}</span>
-                {c.date && <span class="muted cert-date">{formatYm(c.date)} 取得</span>}
-              </li>
-            ))}
-          </ul>
-        </section>
-      )
-    }
+    <div class="grid">
+      {
+        skills?.groups.map((g, i) => (
+          <section class="panel reveal" aria-labelledby={`skill-${i}`}>
+            <span class="num" aria-hidden="true">{String(i + 1).padStart(2, '0')}</span>
+            <h2 id={`skill-${i}`} class="panel-title">{g.name}</h2>
+            <ul class="chips">
+              {g.items.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            {g.note && <p class="muted note">{g.note}</p>}
+          </section>
+        ))
+      }
+      {
+        skills && skills.certifications.length > 0 && (
+          <section class="panel cert reveal" aria-labelledby="certs-title">
+            <span class="num" aria-hidden="true">{String(skills.groups.length + 1).padStart(2, '0')}</span>
+            <h2 id="certs-title" class="panel-title">資格</h2>
+            <ul class="cert-list">
+              {skills.certifications.map((c) => (
+                <li>
+                  <span>{c.name}</span>
+                  {c.date && <span class="cert-date">{formatYm(c.date)}</span>}
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+    </div>
   </div>
 </Base>
 
 <style>
-  .skill-list {
-    margin: 0;
-    border-top: 1px solid var(--line);
-  }
-
-  .skill-row {
+  .grid {
     display: grid;
-    gap: 6px;
-    padding-block: 18px;
-    border-bottom: 1px solid var(--line);
+    gap: 18px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
   }
 
-  .skill-row dt {
+  .panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    padding: 26px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+  }
+
+  .num {
+    font-family: var(--font-num);
+    font-size: 0.8125rem;
     font-weight: 700;
+    color: var(--accent-2);
   }
 
-  .skill-row dd {
-    margin: 0;
-  }
-
-  .skill-items {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px 0;
-  }
-
-  .skill-items li:not(:last-child)::after {
-    content: '/';
-    margin-inline: 0.6em;
-    color: var(--muted);
-    opacity: 0.5;
-  }
-
-  @media (min-width: 768px) {
-    .skill-row {
-      grid-template-columns: 11rem 1fr;
-      gap: 32px;
-    }
-  }
-
-  .certs {
-    margin-top: 64px;
-  }
-
-  .certs-title {
+  .panel-title {
     font-size: 1.25rem;
-    margin-bottom: 16px;
+    font-weight: 800;
   }
 
-  .certs li {
+  .chips {
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 0 16px;
-    padding-block: 12px;
-    border-bottom: 1px solid var(--line);
-    max-width: var(--measure);
+    gap: 8px;
   }
 
-  .certs ul {
-    border-top: 1px solid var(--line);
+  .chips li {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    padding: 4px 12px;
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--text);
+  }
+
+  .cert-list li {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding-block: 6px;
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    border-bottom: 1px dashed var(--line);
+  }
+
+  .cert-list li:last-child {
+    border-bottom: 0;
   }
 
   .cert-date {
-    font-size: 0.875rem;
-    font-variant-numeric: tabular-nums;
+    font-family: var(--font-num);
+    font-size: 0.8125rem;
+    color: var(--muted);
+    white-space: nowrap;
   }
 </style>

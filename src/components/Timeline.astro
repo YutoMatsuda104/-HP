@@ -36,11 +36,9 @@ const { heading, items } = Astro.props;
   }
 
   .group-title {
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--muted);
-    letter-spacing: 0.08em;
-    margin-bottom: 20px;
+    font-size: 1.375rem;
+    font-weight: 800;
+    margin-bottom: 28px;
   }
 
   .timeline {
@@ -67,13 +65,16 @@ const { heading, items } = Astro.props;
     width: 7px;
     height: 7px;
     border-radius: 50%;
-    background: var(--bg);
-    border: 1.5px solid var(--accent);
+    background: var(--accent);
+    border: 2px solid var(--bg);
+    box-shadow: 0 0 0 1.5px var(--accent);
   }
 
   .period {
+    font-family: var(--font-num);
     font-size: 0.8125rem;
-    color: var(--muted);
+    font-weight: 700;
+    color: var(--accent);
     font-variant-numeric: tabular-nums;
     letter-spacing: 0.04em;
   }
@@ -130,8 +131,9 @@ const { heading, items } = Astro.props;
       width: 7px;
       height: 7px;
       border-radius: 50%;
-      background: var(--bg);
-      border: 1.5px solid var(--accent);
+      background: var(--accent);
+      border: 2px solid var(--bg);
+      box-shadow: 0 0 0 1.5px var(--accent);
     }
   }
 </style>

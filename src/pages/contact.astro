@@ -7,8 +7,8 @@ const profile = await getProfile();
 ---
 
 <Base title="連絡先" description={`${profile.name}への連絡先です。`}>
+  <PageHeader eyebrow="Contact" title="連絡先" lead="ご連絡は、以下のメールアドレスまでお願いいたします。" />
   <div class="container">
-    <PageHeader eyebrow="Contact" title="連絡先" lead="ご連絡は、以下のメールアドレスまでお願いいたします。" />
     <dl class="contact">
       {
         profile.email && (

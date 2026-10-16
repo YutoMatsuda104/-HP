@@ -7,20 +7,48 @@ interface Props {
 const { eyebrow, title, lead } = Astro.props;
 ---
 
-<header class="page-header fade-in">
-  <span class="eyebrow" aria-hidden="true">{eyebrow}</span>
-  <h1 class="page-title">{title}</h1>
-  {lead && <p class="page-lead">{lead}</p>}
+<header class="page-header dots">
+  <div class="container inner fade-in">
+    <span class="watermark" aria-hidden="true">{eyebrow}</span>
+    <span class="eyebrow" aria-hidden="true">{eyebrow}</span>
+    <h1 class="page-title">{title}</h1>
+    {lead && <p class="page-lead">{lead}</p>}
+  </div>
 </header>
 
 <style>
   .page-header {
-    padding-block: 56px 40px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--line);
+    margin-bottom: 56px;
+  }
+
+  .inner {
+    position: relative;
+    padding-block: 64px 48px;
+  }
+
+  .watermark {
+    position: absolute;
+    right: 20px;
+    bottom: -0.22em;
+    font-family: var(--font-num);
+    font-size: clamp(4rem, 2rem + 10vw, 10rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    color: transparent;
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 25%, transparent);
+    text-transform: uppercase;
+    pointer-events: none;
+    user-select: none;
   }
 
   .page-title {
-    font-size: clamp(1.75rem, 1.3rem + 1.8vw, 2.5rem);
-    font-weight: 700;
+    margin-top: 12px;
+    font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+    font-weight: 800;
   }
 
   .page-lead {
@@ -30,8 +58,8 @@ const { eyebrow, title, lead } = Astro.props;
   }
 
   @media (min-width: 768px) {
-    .page-header {
-      padding-block: 88px 56px;
+    .inner {
+      padding-block: 96px 64px;
     }
   }
 </style>

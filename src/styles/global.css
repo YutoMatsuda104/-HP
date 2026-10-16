@@ -4,34 +4,46 @@
    ───────────────────────────────────────────── */
 
 :root {
-  --bg: #fbfbf9;
+  --bg: #f6f5f1;
   --surface: #ffffff;
-  --text: #1b1c1e;
-  --muted: #5d6167;
-  --line: #e4e4e0;
-  --accent: #1d4f91;
-  --accent-soft: #eaf0f8;
+  --text: #14161a;
+  --muted: #5a5f68;
+  --line: #e2e0d9;
+  --accent: #2443a6;
+  --accent-soft: #e8ecf8;
+  --accent-2: #d9572b;
+  --ink: #0e1730;
+  --ink-text: #f3f4f8;
+  --ink-muted: #a9b1c7;
+  --dot: rgba(20, 22, 26, 0.09);
 
   --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
     "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+  --font-num: "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
 
-  --header-h: 56px;
-  --container: 1040px;
+  --header-h: 60px;
+  --container: 1120px;
   --measure: 40rem;
-  --radius: 14px;
+  --radius: 18px;
+  --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   color-scheme: light dark;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #111214;
-    --surface: #17191c;
-    --text: #ececea;
-    --muted: #a3a7ad;
-    --line: #2b2e33;
-    --accent: #8db3f2;
-    --accent-soft: #1b2535;
+    --bg: #0d0f13;
+    --surface: #151820;
+    --text: #eceef2;
+    --muted: #a2a8b3;
+    --line: #262a33;
+    --accent: #8ea8ff;
+    --accent-soft: #1a2240;
+    --accent-2: #ff8a5c;
+    --ink: #121a33;
+    --ink-text: #f3f4f8;
+    --ink-muted: #a9b1c7;
+    --dot: rgba(255, 255, 255, 0.07);
   }
 }
 
@@ -60,7 +72,6 @@ body {
   font-size: 1rem;
   line-height: 1.9;
   letter-spacing: 0.02em;
-  font-feature-settings: "palt" 0;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -157,41 +168,70 @@ ul {
   top: 12px;
 }
 
-/* ── セクション共通 ── */
-
-.section {
-  padding-block: 72px;
-  border-top: 1px solid var(--line);
-  scroll-margin-top: var(--header-h);
+/* 方眼紙のようなドット模様(数学のノートをイメージ) */
+.dots {
+  background-image: radial-gradient(var(--dot) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
 }
 
-@media (min-width: 768px) {
-  .section {
-    padding-block: 104px;
-  }
-}
-
-.section-head {
-  margin-bottom: 40px;
-}
+/* ── 共通の部品 ── */
 
 .eyebrow {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--accent);
-  margin-bottom: 6px;
 }
 
-.section-title {
-  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
-  font-weight: 700;
+.eyebrow::before {
+  content: '';
+  width: 22px;
+  height: 2px;
+  background: currentColor;
 }
 
 .muted {
   color: var(--muted);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8125rem;
+  font-weight: 700;
+  line-height: 1.5;
+  color: var(--accent-2);
+  background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  padding: 3px 12px;
+  border-radius: 999px;
+}
+
+.badge::before {
+  content: '★';
+  font-size: 0.75em;
+}
+
+.arrow-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.arrow-link::after {
+  content: '→';
+  transition: transform 0.25s var(--ease);
+}
+
+.arrow-link:hover::after {
+  transform: translateX(4px);
 }
 
 /* ── 本文(Markdown) ── */
@@ -207,6 +247,9 @@ ul {
 .prose h2 {
   font-size: 1.25rem;
   margin-top: 2.4em;
+  padding-left: 14px;
+  border-left: 3px solid var(--accent);
+  line-height: 1.5;
 }
 
 .prose h3 {
@@ -231,14 +274,18 @@ ul {
 
 @media (prefers-reduced-motion: no-preference) {
   .fade-in {
-    animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+    animation: fade-up 0.8s var(--ease) both;
+  }
+
+  .fade-in.delay {
+    animation-delay: 0.12s;
   }
 
   @supports (animation-timeline: view()) {
     .reveal {
       animation: fade-up linear both;
       animation-timeline: view();
-      animation-range: entry 0% entry 40%;
+      animation-range: entry 0% entry 35%;
     }
   }
 }
@@ -246,7 +293,7 @@ ul {
 @keyframes fade-up {
   from {
     opacity: 0;
-    transform: translateY(14px);
+    transform: translateY(16px);
   }
   to {
     opacity: 1;

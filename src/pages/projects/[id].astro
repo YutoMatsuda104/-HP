@@ -26,7 +26,8 @@ const period = formatPeriod(d.start, d.end);
     <header class="head fade-in">
       {d.category && <p class="eyebrow">{d.category}</p>}
       <h1 class="title">{d.title}</h1>
-      {d.result && <p class="result">{d.result}</p>}
+      {d.result && <p class="badge result">{d.result}</p>}
+      {d.authors && <p class="authors">{d.authors}</p>}
       {d.summary && <p class="summary">{d.summary}</p>}
     </header>
 
@@ -136,14 +137,12 @@ const period = formatPeriod(d.start, d.end);
   }
 
   .result {
-    display: inline-block;
     margin-top: 16px;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 2px 12px;
-    border-radius: 999px;
+  }
+
+  .authors {
+    margin-top: 12px;
+    color: var(--muted);
   }
 
   .summary {

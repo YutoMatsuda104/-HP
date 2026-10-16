@@ -28,6 +28,7 @@ const profile = defineCollection({
       affiliation: z.string().optional(),
       lead: z.string().optional(),
       intro: z.string().optional(),
+      now: z.array(z.string()).default([]),
       motto: z.string().optional(),
       email: z.string().optional(),
       github: z.string().optional(),
@@ -90,11 +91,16 @@ const projects = defineCollection({
   schema: ({ image }) =>
     z.object({
       title: z.string(),
+      // 種類: research(研究)/ paper(論文・発表)/ activity(コンペ・プロジェクトなど)
+      kind: z.enum(['research', 'paper', 'activity']).default('activity'),
+      // true にするとトップページで大きく紹介します(1件)
+      featured: z.boolean().default(false),
       start: yearMonth.optional(),
       end: z.union([yearMonth, z.literal('現在')]).optional(),
       category: z.string().optional(),
       result: z.string().optional(),
       venue: z.string().optional(),
+      authors: z.string().optional(),
       summary: z.string().optional(),
       role: z.string().optional(),
       tech: z.array(z.string()).default([]),

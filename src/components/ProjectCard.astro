@@ -1,7 +1,7 @@
 ---
 import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
-import { formatPeriod, hasDetail } from '../lib';
+import { formatPeriod, hasDetail, kindLabel } from '../lib';
 
 interface Props {
   project: CollectionEntry<'projects'>;
@@ -13,37 +13,40 @@ const Heading = headingLevel === 2 ? 'h2' : 'h3';
 const d = project.data;
 const detail = hasDetail(project);
 const period = formatPeriod(d.start, d.end);
-const meta = [d.category, period].filter(Boolean).join(' ・ ');
 ---
 
-<article class:list={['card', 'reveal', { linked: detail }]}>
-  {
-    d.cover && (
-      <Image
-        class="cover"
-        src={d.cover}
-        alt={d.coverAlt ?? ''}
-        widths={[400, 800]}
-        sizes="(min-width: 768px) 480px, 100vw"
-      />
-    )
-  }
+<article class:list={['card', 'reveal', `kind-${d.kind}`, { linked: detail }]}>
+  <div class="cover">
+    {
+      d.cover ? (
+        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[480, 800]} sizes="(min-width: 768px) 520px, 100vw" />
+      ) : (
+        <div class="cover-type dots" aria-hidden="true">
+          <span class="cover-kind">{kindLabel[d.kind].en}</span>
+          <span class="cover-title">{d.title}</span>
+        </div>
+      )
+    }
+    <span class="kind-tag">{d.category ?? kindLabel[d.kind].ja}</span>
+  </div>
   <div class="content">
-    {meta && <p class="meta">{meta}</p>}
+    {period && <p class="meta">{period}</p>}
     <Heading class="title">
       {detail ? <a href={`/projects/${project.id}/`}>{d.title}</a> : d.title}
     </Heading>
-    {d.result && <p class="result">{d.result}</p>}
-    {(d.venue || d.role) && <p class="role">{[d.venue, d.role].filter(Boolean).join(' ・ ')}</p>}
+    {d.result && <p class="badge">{d.result}</p>}
+    {(d.venue || d.role) && <p class="venue">{[d.venue, d.role].filter(Boolean).join(' ・ ')}</p>}
     {d.summary && <p class="summary">{d.summary}</p>}
     {
       d.tech.length > 0 && (
         <ul class="tags" aria-label="使用した技術・手法">
-          {d.tech.map((t) => <li>{t}</li>)}
+          {d.tech.map((t) => (
+            <li>{t}</li>
+          ))}
         </ul>
       )
     }
-    {detail && <p class="more" aria-hidden="true">詳しく見る →</p>}
+    {detail && <p class="more arrow-link" aria-hidden="true">詳しく見る</p>}
   </div>
 </article>
 
@@ -56,31 +59,104 @@ const meta = [d.category, period].filter(Boolean).join(' ・ ');
     border: 1px solid var(--line);
     border-radius: var(--radius);
     overflow: hidden;
-    transition: border-color 0.2s;
+    transition:
+      transform 0.3s var(--ease),
+      box-shadow 0.3s var(--ease),
+      border-color 0.3s;
   }
 
   .linked:hover {
-    border-color: var(--accent);
+    transform: translateY(-4px);
+    border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
+    box-shadow: 0 18px 40px -24px rgba(14, 23, 48, 0.45);
   }
 
   .cover {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    overflow: hidden;
+    background: var(--ink);
+  }
+
+  .cover :global(img) {
     width: 100%;
-    aspect-ratio: 16 / 9;
+    height: 100%;
     object-fit: cover;
+    object-position: center 20%;
+    transition: transform 0.6s var(--ease);
+  }
+
+  .linked:hover .cover :global(img) {
+    transform: scale(1.04);
+  }
+
+  .cover-type {
+    --dot: rgba(255, 255, 255, 0.12);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    padding: 22px;
+    color: #fff;
+    background-color: var(--ink);
+  }
+
+  .kind-paper .cover-type {
+    background-color: #2443a6;
+  }
+
+  .kind-activity .cover-type {
+    background-color: #b8461f;
+  }
+
+  .cover-kind {
+    font-family: var(--font-num);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+
+  .cover-title {
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .kind-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text);
+    background: color-mix(in srgb, var(--surface) 92%, transparent);
+    backdrop-filter: blur(6px);
+    padding: 3px 10px;
+    border-radius: 999px;
   }
 
   .content {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-    padding: 24px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 22px 24px 24px;
     flex: 1;
   }
 
   .meta {
+    font-family: var(--font-num);
     font-size: 0.8125rem;
+    font-weight: 600;
     color: var(--muted);
-    letter-spacing: 0.04em;
+    letter-spacing: 0.06em;
   }
 
   .title {
@@ -111,19 +187,10 @@ const meta = [d.category, period].filter(Boolean).join(' ・ ');
     outline-offset: 2px;
   }
 
-  .result {
-    align-self: flex-start;
-    font-size: 0.8125rem;
-    font-weight: 600;
-    color: var(--accent);
-    background: var(--accent-soft);
-    padding: 2px 10px;
-    border-radius: 999px;
-  }
-
-  .role {
+  .venue {
     font-size: 0.875rem;
     color: var(--muted);
+    line-height: 1.6;
   }
 
   .summary {
@@ -134,23 +201,21 @@ const meta = [d.category, period].filter(Boolean).join(' ・ ');
   .tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 4px 14px;
-    font-size: 0.8125rem;
-    color: var(--muted);
-    margin-top: 4px;
+    gap: 6px;
   }
 
-  .tags li::before {
-    content: '#';
-    opacity: 0.6;
-    margin-right: 1px;
+  .tags li {
+    font-size: 0.75rem;
+    color: var(--muted);
+    border: 1px solid var(--line);
+    padding: 1px 10px;
+    border-radius: 999px;
   }
 
   .more {
     margin-top: auto;
-    padding-top: 8px;
+    padding-top: 6px;
     font-size: 0.875rem;
-    font-weight: 600;
     color: var(--accent);
   }
 </style>

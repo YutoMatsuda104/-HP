@@ -1,7 +1,8 @@
 ---
 title: 地域格差に着目した学習時間と教育成果の構造的関係分析
 start: 2024-09
-category: 研究・論文
+category: 論文
+kind: paper
 venue: 統計データ分析コンペティション
 summary: 都道府県データを用いて、学習時間と大学進学率の地域格差を分析しました。
 tech:

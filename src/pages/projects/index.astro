@@ -2,24 +2,117 @@
 import Base from '../../layouts/Base.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import ProjectCard from '../../components/ProjectCard.astro';
-import { getProjects } from '../../lib';
+import PublicationList from '../../components/PublicationList.astro';
+import { getProfile, getProjects, kindLabel } from '../../lib';
 
+const profile = await getProfile();
 const projects = await getProjects();
+const research = projects.filter((p) => p.data.kind === 'research');
+const papers = projects.filter((p) => p.data.kind === 'paper');
+const activities = projects.filter((p) => p.data.kind === 'activity');
 ---
 
-<Base title="研究・活動" description="研究、論文、コンペティションなどの取り組みと実績。">
+<Base title="研究・活動" description="研究、論文・発表、コンペティションやプロジェクトでの受賞などの実績。">
+  <PageHeader eyebrow="Projects" title="研究・活動" lead="これまでに取り組んだ研究、論文・発表、コンペティションやプロジェクトです。" />
   <div class="container">
-    <PageHeader eyebrow="Projects" title="研究・活動" lead="これまでに取り組んだ研究、論文、コンペティションなどです。" />
-    <div class="project-grid">
-      {projects.map((p) => <ProjectCard project={p} />)}
-    </div>
+    <nav class="jump" aria-label="このページの目次">
+      {research.length > 0 && <a href="#research">{kindLabel.research.ja}<span>{research.length}</span></a>}
+      {papers.length > 0 && <a href="#papers">{kindLabel.paper.ja}<span>{papers.length}</span></a>}
+      {activities.length > 0 && <a href="#activities">{kindLabel.activity.ja}<span>{activities.length}</span></a>}
+    </nav>
+
+    {
+      research.length > 0 && (
+        <section id="research" class="group" aria-labelledby="research-title">
+          <p class="eyebrow">Research</p>
+          <h2 id="research-title" class="group-title">研究</h2>
+          <div class="grid">
+            {research.map((p) => (
+              <ProjectCard project={p} headingLevel={3} />
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    {
+      papers.length > 0 && (
+        <section id="papers" class="group" aria-labelledby="papers-title">
+          <p class="eyebrow">Publications</p>
+          <h2 id="papers-title" class="group-title">論文・発表</h2>
+          <PublicationList papers={papers} self={profile.name} />
+        </section>
+      )
+    }
+
+    {
+      activities.length > 0 && (
+        <section id="activities" class="group" aria-labelledby="act-title">
+          <p class="eyebrow">Activities</p>
+          <h2 id="act-title" class="group-title">活動・受賞</h2>
+          <div class="grid">
+            {activities.map((p) => (
+              <ProjectCard project={p} headingLevel={3} />
+            ))}
+          </div>
+        </section>
+      )
+    }
   </div>
 </Base>
 
 <style>
-  .project-grid {
+  .jump {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+
+  .jump a {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 8px 16px;
+    border-radius: 999px;
+    border: 1px solid var(--line);
+    background: var(--surface);
+    color: var(--text);
+    font-size: 0.875rem;
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .jump a:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .jump span {
+    font-family: var(--font-num);
+    font-size: 0.75rem;
+    color: var(--bg);
+    background: var(--text);
+    border-radius: 999px;
+    min-width: 1.6em;
+    text-align: center;
+  }
+
+  .group {
+    padding-top: 56px;
+    scroll-margin-top: 80px;
+  }
+
+  .group-title {
+    margin-top: 8px;
+    margin-bottom: 28px;
+    font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+    font-weight: 800;
+  }
+
+  .grid {
     display: grid;
-    gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+    gap: 22px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 320px), 1fr));
   }
 </style>

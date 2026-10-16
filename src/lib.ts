@@ -38,3 +38,10 @@ export async function getProjects() {
 
 /** 本文が書かれているプロジェクトだけ詳細ページを作ります */
 export const hasDetail = (p: { body?: string }) => Boolean(p.body && p.body.trim().length > 0);
+
+/** プロジェクトの種類の表示名 */
+export const kindLabel = {
+  research: { ja: '研究', en: 'Research' },
+  paper: { ja: '論文・発表', en: 'Publication' },
+  activity: { ja: '活動・受賞', en: 'Activity' },
+} as const;
