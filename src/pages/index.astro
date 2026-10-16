@@ -1,6 +1,5 @@
 ---
 import { Image, Picture } from 'astro:assets';
-import { getEntry } from 'astro:content';
 import Base from '../layouts/Base.astro';
 import ProjectCard from '../components/ProjectCard.astro';
 import PublicationList from '../components/PublicationList.astro';
@@ -9,18 +8,12 @@ import { pages } from '../nav';
 
 const profile = await getProfile();
 const projects = await getProjects();
-const skills = (await getEntry('skills', 'skills'))?.data;
 
 const featured = projects.find((p) => p.data.featured) ?? projects.find((p) => p.data.kind === 'research');
 const papers = projects.filter((p) => p.data.kind === 'paper');
+const otherResearch = projects.filter((p) => p.data.kind === 'research' && p !== featured);
 const activities = projects.filter((p) => p.data.kind === 'activity' && p !== featured);
 
-// 数字はコンテンツから自動で数えます
-const stats = [
-  { value: papers.length, unit: '本', label: '論文・発表' },
-  { value: projects.filter((p) => p.data.result).length, unit: '件', label: '受賞' },
-  { value: skills?.certifications.length ?? 0, unit: '件', label: '資格' },
-].filter((s) => s.value > 0);
 
 const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
 ---
@@ -76,27 +69,6 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
     </div>
   </section>
 
-  <!-- 数字 -->
-  {
-    stats.length > 0 && (
-      <section class="stats" aria-label="実績の概要">
-        <div class="container">
-          <ul class="stat-list">
-            {stats.map((s) => (
-              <li>
-                <span class="stat-value">
-                  {s.value}
-                  <small>{s.unit}</small>
-                </span>
-                <span class="stat-label">{s.label}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
-    )
-  }
-
   <!-- 注目の研究 -->
   {
     featured && (
@@ -126,6 +98,18 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
               )}
             </div>
           </article>
+          {otherResearch.length > 0 && (
+            <div class="grid more-research">
+              {otherResearch.slice(0, 3).map((p) => (
+                <ProjectCard project={p} headingLevel={3} />
+              ))}
+            </div>
+          )}
+          <p class="block-more">
+            <a class="arrow-link" href="/projects/">
+              研究をすべて見る
+            </a>
+          </p>
         </div>
       </section>
     )
@@ -152,7 +136,7 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
           <div class="block-head">
             <div>
               <p class="eyebrow">Activities</p>
-              <h2 id="act-title" class="block-title">活動・受賞</h2>
+              <h2 id="act-title" class="block-title">その他の活動</h2>
             </div>
             <a class="arrow-link" href="/projects/">
               すべて見る
@@ -377,52 +361,6 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
     }
   }
 
-  /* ── 数字 ── */
-  .stats {
-    background: var(--ink);
-    color: var(--ink-text);
-  }
-
-  .stat-list {
-    display: grid;
-    grid-template-columns: repeat(var(--n, 3), 1fr);
-    --n: 3;
-  }
-
-  .stat-list li {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding-block: 32px;
-    text-align: center;
-  }
-
-  .stat-list li + li {
-    border-left: 1px solid rgba(255, 255, 255, 0.12);
-  }
-
-  .stat-value {
-    font-family: var(--font-num);
-    font-size: clamp(2.25rem, 1.6rem + 2.4vw, 3.5rem);
-    font-weight: var(--weight-heading);
-    line-height: 1.1;
-  }
-
-  .stat-value small {
-    font-family: var(--font-sans);
-    font-size: 0.9rem;
-    font-weight: 700;
-    margin-left: 4px;
-    color: var(--ink-muted);
-  }
-
-  .stat-label {
-    margin-top: 6px;
-    font-size: 0.8125rem;
-    color: var(--ink-muted);
-    letter-spacing: 0.08em;
-  }
-
   /* ── セクション共通 ── */
   .block {
     padding-block: 80px;
@@ -511,6 +449,15 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
       padding: 48px;
       justify-content: center;
     }
+  }
+
+  .more-research {
+    margin-top: 22px;
+  }
+
+  .block-more {
+    margin-top: 28px;
+    text-align: right;
   }
 
   /* ── 活動 ── */

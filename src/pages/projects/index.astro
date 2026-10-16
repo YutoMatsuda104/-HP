@@ -12,8 +12,8 @@ const papers = projects.filter((p) => p.data.kind === 'paper');
 const activities = projects.filter((p) => p.data.kind === 'activity');
 ---
 
-<Base title="研究・活動" description="研究、論文・発表、コンペティションやプロジェクトでの受賞などの実績。">
-  <PageHeader eyebrow="Projects" title="研究・活動" lead="これまでに取り組んだ研究、論文・発表、コンペティションやプロジェクトです。" />
+<Base title="研究・活動" description="これまでに取り組んだ研究と、その成果(論文・発表、受賞)。">
+  <PageHeader eyebrow="Projects" title="研究・活動" lead="これまでに取り組んだ研究と、その成果としての論文・発表です。受賞したものには ★ を付けています。" />
   <div class="container">
     <nav class="jump" aria-label="このページの目次">
       {research.length > 0 && <a href="#research">{kindLabel.research.ja}<span>{research.length}</span></a>}
@@ -49,7 +49,7 @@ const activities = projects.filter((p) => p.data.kind === 'activity');
       activities.length > 0 && (
         <section id="activities" class="group" aria-labelledby="act-title">
           <p class="eyebrow">Activities</p>
-          <h2 id="act-title" class="group-title">活動・受賞</h2>
+          <h2 id="act-title" class="group-title">{kindLabel.activity.ja}</h2>
           <div class="grid">
             {activities.map((p) => (
               <ProjectCard project={p} headingLevel={3} />

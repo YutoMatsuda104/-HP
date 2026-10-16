@@ -43,7 +43,7 @@ export const hasDetail = (p: { body?: string }) => Boolean(p.body && p.body.trim
 export const kindLabel = {
   research: { ja: '研究', en: 'Research' },
   paper: { ja: '論文・発表', en: 'Publication' },
-  activity: { ja: '活動・受賞', en: 'Activity' },
+  activity: { ja: 'その他の活動', en: 'Activity' },
 } as const;
 
 /** 迷惑メール対策: @ を [at] に置き換えた表示用のメールアドレス */

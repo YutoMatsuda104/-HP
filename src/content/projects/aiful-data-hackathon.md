@@ -2,7 +2,7 @@
 title: アイフルデータハッカソン
 start: 2024-03
 category: コンペティション
-kind: activity
+kind: research
 cover: ../images/aiful-hackathon.jpg
 coverAlt: アイフルハッカソンで優秀賞のボードを持つチームの集合写真
 result: 優秀賞(2位)

@@ -2,7 +2,7 @@
 title: バーチャル展示会における来場者の行動特性の分析
 start: 2024-02
 category: 授業プロジェクト
-kind: activity
+kind: research
 cover: ../images/mirai-poster.jpg
 coverAlt: 成果発表会で研究ポスターの横に立つ松田悠杜
 result: 国土開発株式会社企業賞
