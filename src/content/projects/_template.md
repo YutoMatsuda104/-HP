@@ -20,6 +20,7 @@ tech:                   # 使用した技術・手法
   - Python
 # cover: ../images/my-research.jpg   # 画像(src/content/images/ に置く)
 # coverAlt: 画像の説明
+# coverPosition: top                 # 一覧のカードで見せたい位置(top / center / bottom など。省略可)
 links:                  # 関連資料(論文・発表資料・リポジトリなど)
   - label: 発表資料
     url: https://example.com

@@ -5,6 +5,7 @@ category: 研究
 kind: research
 cover: ../images/mirai-poster.jpg
 coverAlt: 成果発表会で研究ポスターの横に立つ松田悠杜
+coverPosition: center top
 result: 国土開発株式会社企業賞
 venue: 武蔵野大学データサイエンス学部「未来創造プロジェクト」
 summary: バーチャル展示会で取得した来場者の座標データを用いて、来場者の行動特性を分析しました。

@@ -19,7 +19,13 @@ const period = formatPeriod(d.start, d.end);
   <div class="cover">
     {
       d.cover ? (
-        <Image src={d.cover} alt={d.coverAlt ?? ''} widths={[480, 800]} sizes="(min-width: 768px) 520px, 100vw" />
+        <Image
+          src={d.cover}
+          alt={d.coverAlt ?? ''}
+          widths={[480, 800]}
+          sizes="(min-width: 768px) 520px, 100vw"
+          style={d.coverPosition ? `object-position: ${d.coverPosition}` : undefined}
+        />
       ) : (
         <div class="cover-type dots" aria-hidden="true">
           <span class="cover-kind">{kindLabel[d.kind].en}</span>

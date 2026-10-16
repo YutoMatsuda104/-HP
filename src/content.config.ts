@@ -115,6 +115,8 @@ const projects = defineCollection({
       tech: z.array(z.string()).default([]),
       cover: image().optional(),
       coverAlt: z.string().optional(),
+      // 一覧のカードで写真のどこを見せるか(例: top / center / 50% 30%)。省略時は中央より少し上
+      coverPosition: z.string().optional(),
       links: z.array(link).default([]),
       draft: z.boolean().default(false),
     }),
