@@ -24,6 +24,23 @@ const groups = skills?.groups ?? [];
               <li class="cert reveal">
                 {c.date && <span class="cert-date">{formatYm(c.date)}</span>}
                 <span class="cert-name">{c.name}</span>
+                {c.description && <p class="desc">{c.description}</p>}
+                {(c.reason || c.goal) && (
+                  <dl class="why">
+                    {c.reason && (
+                      <div>
+                        <dt>取得した理由</dt>
+                        <dd>{c.reason}</dd>
+                      </div>
+                    )}
+                    {c.goal && (
+                      <div>
+                        <dt>活かしたいこと</dt>
+                        <dd>{c.goal}</dd>
+                      </div>
+                    )}
+                  </dl>
+                )}
               </li>
             ))}
           </ul>
@@ -46,12 +63,29 @@ const groups = skills?.groups ?? [];
                   {g.name}
                 </dt>
                 <dd>
+                  {g.description && <p class="desc">{g.description}</p>}
                   <ul class="chips">
                     {g.items.map((item) => (
                       <li>{item}</li>
                     ))}
                   </ul>
                   {g.note && <p class="muted note">{g.note}</p>}
+                  {(g.reason || g.goal) && (
+                    <dl class="why">
+                      {g.reason && (
+                        <div>
+                          <dt>身につけた理由</dt>
+                          <dd>{g.reason}</dd>
+                        </div>
+                      )}
+                      {g.goal && (
+                        <div>
+                          <dt>活かしたいこと</dt>
+                          <dd>{g.goal}</dd>
+                        </div>
+                      )}
+                    </dl>
+                  )}
                 </dd>
               </div>
             ))}
@@ -82,7 +116,7 @@ const groups = skills?.groups ?? [];
   .certs {
     display: grid;
     gap: 14px;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr));
   }
 
   .cert {
@@ -111,6 +145,34 @@ const groups = skills?.groups ?? [];
     line-height: 1.6;
   }
 
+  .desc {
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    margin-bottom: 4px;
+  }
+
+  .why {
+    margin: 10px 0 0;
+    display: grid;
+    gap: 8px;
+    padding-top: 12px;
+    border-top: 1px dashed var(--line);
+  }
+
+  .why dt {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+  }
+
+  .why dd {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--muted);
+  }
+
   /* スキル: 分野ごとに1行ずつ */
   .skills {
     margin: 0;
@@ -130,7 +192,7 @@ const groups = skills?.groups ?? [];
     border-top: 1px solid var(--line);
   }
 
-  .row dt {
+  .row > dt {
     display: flex;
     align-items: baseline;
     gap: 10px;
@@ -145,7 +207,7 @@ const groups = skills?.groups ?? [];
     color: var(--accent-2);
   }
 
-  .row dd {
+  .row > dd {
     margin: 0;
   }
 
@@ -177,7 +239,7 @@ const groups = skills?.groups ?? [];
       padding: 22px 28px;
     }
 
-    .row dt {
+    .row > dt {
       padding-top: 4px;
     }
   }

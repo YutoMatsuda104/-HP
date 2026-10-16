@@ -72,6 +72,10 @@ const skills = defineCollection({
           name: z.string(),
           note: z.string().optional(),
           items: z.array(z.string()),
+          // 簡単な説明・身につけた理由・これから活かしたいこと(どれも省略可)
+          description: z.string().optional(),
+          reason: z.string().optional(),
+          goal: z.string().optional(),
         }),
       )
       .default([]),
@@ -80,6 +84,10 @@ const skills = defineCollection({
         z.object({
           name: z.string(),
           date: yearMonth.optional(),
+          // 簡単な説明・取得した理由・これから活かしたいこと(どれも省略可)
+          description: z.string().optional(),
+          reason: z.string().optional(),
+          goal: z.string().optional(),
         }),
       )
       .default([]),

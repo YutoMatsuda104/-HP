@@ -20,6 +20,7 @@ const pageTitle = title ? `${title} | ${profile.name}` : siteName;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = new URL('/og.jpg', Astro.site);
 const isHome = Astro.url.pathname === '/';
+const introName = [...(profile.nameEn ?? profile.name)];
 
 const jsonLd = isHome
   ? {
@@ -56,12 +57,26 @@ const jsonLd = isHome
 
     <meta name="theme-color" content={tokens.colors.neutral} media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content={tokens.colors['neutral-dark']} media="(prefers-color-scheme: dark)" />
-    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" type="image/png" sizes="32x32" />
+    <link rel="icon" href="/favicon-192.png" type="image/png" sizes="192x192" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="sitemap" href="/sitemap.xml" />
+    <script is:inline>
+      // 開いたときの演出は、同じタブで最初の1回だけ表示する
+      try {
+        if (sessionStorage.getItem('intro-seen')) document.documentElement.classList.add('intro-seen');
+        else sessionStorage.setItem('intro-seen', '1');
+      } catch (e) {}
+    </script>
     {jsonLd && <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />}
   </head>
   <body>
+    <div class="intro" aria-hidden="true">
+      <p class="intro-name">
+        {introName.map((ch, i) => <span style={`--i:${i}`}>{ch === ' ' ? '\u00a0' : ch}</span>)}
+      </p>
+      <span class="intro-line"></span>
+    </div>
     <a class="skip-link" href="#main">本文へスキップ</a>
     <Header brand={profile.nameEn ?? profile.name} />
     <main id="main">
@@ -88,6 +103,71 @@ const jsonLd = isHome
 </html>
 
 <style>
+  /* ── 開いたときの演出(幕が上がって本文が現れる) ── */
+  .intro {
+    display: none;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :global(html:not(.intro-seen)) .intro {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      display: grid;
+      place-content: center;
+      justify-items: center;
+      gap: 18px;
+      background: var(--ink);
+      color: var(--ink-text);
+      animation: intro-out 0.8s var(--ease) 1.5s forwards;
+    }
+  }
+
+  .intro-name {
+    display: flex;
+    overflow: hidden;
+    font-family: var(--font-num);
+    font-size: clamp(1.75rem, 1.2rem + 3vw, 3rem);
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    line-height: 1.2;
+  }
+
+  .intro-name span {
+    display: inline-block;
+    animation: intro-letter 0.6s var(--ease) both;
+    animation-delay: calc(0.15s + var(--i) * 0.04s);
+  }
+
+  .intro-line {
+    width: 0;
+    height: 2px;
+    background: var(--color-tertiary-light);
+    animation: intro-line 0.9s var(--ease) 0.5s forwards;
+  }
+
+  @keyframes intro-letter {
+    from {
+      transform: translateY(110%);
+    }
+    to {
+      transform: none;
+    }
+  }
+
+  @keyframes intro-line {
+    to {
+      width: min(240px, 50vw);
+    }
+  }
+
+  @keyframes intro-out {
+    to {
+      transform: translateY(-100%);
+      visibility: hidden;
+    }
+  }
+
   .site-footer {
     margin-top: 96px;
     border-top: 1px solid var(--line);

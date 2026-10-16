@@ -1,17 +1,18 @@
 /* このファイルは自動生成です。直接編集せず、DESIGN.md を変更して npm run design を実行してください。 */
 
 :root {
-  --color-primary: #1a1c1e;
-  --color-on-primary: #f7f5f2;
-  --color-secondary: #666c72;
-  --color-tertiary: #b8422e;
+  --color-primary: #17211c;
+  --color-on-primary: #f4f5f0;
+  --color-secondary: #5f6a64;
+  --color-tertiary: #276a47;
+  --color-tertiary-light: #7cc79c;
   --color-on-tertiary: #ffffff;
-  --color-neutral: #f7f5f2;
-  --color-surface: #fdfcfa;
-  --color-stone: #ece8e1;
-  --color-line: #e0dcd4;
-  --color-ink-muted: #a3a7ad;
-  --color-cover-paper: #4a5058;
+  --color-neutral: #f4f5f0;
+  --color-surface: #fbfcf9;
+  --color-stone: #e4ebe4;
+  --color-line: #dce2db;
+  --color-ink-muted: #a6b3ab;
+  --color-cover-paper: #3e5a4b;
   --rounded-sm: 4px;
   --rounded-md: 8px;
   --space-sm: 8px;
@@ -48,13 +49,13 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #ece9e4;
-    --color-secondary: #9a9fa6;
-    --color-tertiary: #e07a62;
-    --color-neutral: #121314;
-    --color-surface: #1a1c1e;
-    --color-stone: #25282c;
-    --color-line: #2c2f33;
-    --color-ink: #0a0b0c;
+    --color-primary: #e8ede9;
+    --color-secondary: #97a39c;
+    --color-tertiary: #7cc79c;
+    --color-neutral: #111613;
+    --color-surface: #18201b;
+    --color-stone: #223029;
+    --color-line: #2a352f;
+    --color-ink: #0a0f0c;
   }
 }

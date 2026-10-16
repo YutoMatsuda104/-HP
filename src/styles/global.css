@@ -269,12 +269,26 @@ ul {
 /* ── 控えめな表示アニメーション(動きを減らす設定では無効) ── */
 
 @media (prefers-reduced-motion: no-preference) {
+  /* 開いたときの演出がある場合は、幕が上がったあとに表示する */
+  :root {
+    --intro-delay: 1.75s;
+  }
+
+  :root.intro-seen {
+    --intro-delay: 0s;
+  }
+
   .fade-in {
-    animation: fade-up 0.8s var(--ease) both;
+    animation: fade-up 0.9s var(--ease) both;
+    animation-delay: var(--intro-delay);
   }
 
   .fade-in.delay {
-    animation-delay: 0.12s;
+    animation-delay: calc(var(--intro-delay) + 0.15s);
+  }
+
+  .fade-in.delay-2 {
+    animation-delay: calc(var(--intro-delay) + 0.3s);
   }
 
   @supports (animation-timeline: view()) {

@@ -150,6 +150,7 @@ work:
 - プロフィール写真: `src/content/images/profile.jpg` を同じ名前の新しい写真で上書きします(GitHubでは「Add file」→「Upload files」)。別の名前にした場合は `profile.yaml` の `photo:` も変更します
 - 写真は自動で圧縮・最適化されるので、元の写真をそのままアップロードして構いません
 - SNS共有用の画像は `public/og.jpg`(1200×630ピクセル)です。所属などが変わったら差し替えてください
+- ブラウザのタブのアイコンは `public/favicon-32.png`・`favicon-192.png`・`apple-touch-icon.png`(プロフィール写真の顔部分を正方形に切り抜いたもの)です
 
 ## ⑪ メールアドレスの変更方法
 
