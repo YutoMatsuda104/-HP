@@ -16,8 +16,11 @@ const shortUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
           <div>
             <dt>メール</dt>
             <dd>
-              <span class="email">{obfuscateEmail(profile.email)}</span>
-              <p class="note">迷惑メール対策のため「@」を「[at]」と表記しています。送信の際は [at] を @ に変えてください。</p>
+              <span class="email-row">
+                <span class="email" id="email">{obfuscateEmail(profile.email)}</span>
+                <button type="button" class="copy" id="copy-email" hidden>コピー</button>
+              </span>
+              <p class="note">迷惑メール対策のため「@」を「[at]」と表記しています。送信の際は [at] を @ に変えてください。「コピー」を押すと、@ に直した状態でコピーできます。</p>
             </dd>
           </div>
         )
@@ -45,6 +48,24 @@ const shortUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
     </dl>
   </div>
 </Base>
+
+<script>
+  // ページには [at] 表記だけを置き、押されたときに @ に直してコピーする
+  const button = document.getElementById('copy-email');
+  const email = document.getElementById('email');
+  if (button && email && navigator.clipboard) {
+    button.hidden = false;
+    button.addEventListener('click', async () => {
+      try {
+        await navigator.clipboard.writeText((email.textContent ?? '').replace('[at]', '@').trim());
+        button.textContent = 'コピーしました';
+      } catch {
+        button.textContent = 'コピーできませんでした';
+      }
+      setTimeout(() => (button.textContent = 'コピー'), 2000);
+    });
+  }
+</script>
 
 <style>
   .contact {
@@ -74,6 +95,30 @@ const shortUrl = (url: string) => url.replace(/^https?:\/\/(www\.)?/, '');
     font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);
     font-weight: 600;
     font-family: var(--font-num);
+  }
+
+  .email-row {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 8px 14px;
+  }
+
+  .copy {
+    font: inherit;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border: 1px solid var(--accent);
+    border-radius: var(--rounded-sm);
+    background: var(--surface);
+    color: var(--accent);
+    cursor: pointer;
+  }
+
+  .copy:hover {
+    background: var(--accent);
+    color: var(--on-accent);
   }
 
   .note {

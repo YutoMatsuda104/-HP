@@ -29,6 +29,7 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
           {profile.nameReading && <span class="visually-hidden">({profile.nameReading})</span>}
         </h1>
         {profile.lead && <p class="lead"><span>{profile.lead}</span></p>}
+        {profile.tagline && <p class="tagline">{profile.tagline}</p>}
         {
           profile.now.length > 0 && (
             <div class="now">
@@ -213,8 +214,14 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
     border-left: 2px solid var(--accent);
   }
 
+  .tagline {
+    margin-top: 16px;
+    font-size: clamp(1rem, 0.95rem + 0.3vw, 1.125rem);
+    color: var(--muted);
+  }
+
   .now {
-    margin-top: 32px;
+    margin-top: 28px;
     padding: 18px 20px;
     background: var(--surface);
     border: 1px solid var(--line);
