@@ -38,6 +38,11 @@ const selfKey = self.replace(/\s+/g, '');
             )}
             {d.venue && <p class="venue">{d.venue}</p>}
             {d.summary && <p class="summary">{d.summary}</p>}
+            {hasDetail(p) && (
+              <a class="arrow-link more" href={`/projects/${p.id}/`} aria-label={`${d.title}の詳細`}>
+                詳細はこちら
+              </a>
+            )}
           </div>
         </li>
       );
@@ -46,6 +51,11 @@ const selfKey = self.replace(/\s+/g, '');
 </ol>
 
 <style>
+  .more {
+    margin-top: 12px;
+    font-size: 0.875rem;
+  }
+
   .pubs {
     list-style: none;
     margin: 0;

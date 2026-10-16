@@ -162,9 +162,11 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
           pages.map((p, i) => (
             <li>
               <a href={p.href}>
-                <span class="ex-num">{String(i + 1).padStart(2, '0')}</span>
                 <span class="ex-en">{p.en}</span>
-                <span class="ex-label">{p.label}</span>
+                <span class="ex-label">
+                  <span class="ex-num">{String(i + 1).padStart(2, '0')}</span>
+                  {p.label}
+                </span>
                 <span class="ex-desc">{p.description}</span>
               </a>
             </li>
@@ -514,12 +516,17 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
     }
   }
 
+  .explore li {
+    display: flex;
+  }
+
   .explore a {
+    flex: 1;
     position: relative;
     display: flex;
     flex-direction: column;
-    min-height: 168px;
-    padding: 22px;
+    gap: 4px;
+    padding: 18px 20px 20px;
     border-radius: var(--radius);
     background: var(--surface);
     border: 1px solid var(--line);
@@ -556,9 +563,24 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
   }
 
   .ex-label {
-    margin-top: auto;
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+    margin-top: 18px;
     font-size: 1.125rem;
     font-weight: var(--weight-heading);
+  }
+
+  /* スマホではカードが横長になるので、英字ラベルを名前と同じ行に置いて高さを抑える */
+  @media (max-width: 599px) {
+    .ex-label {
+      margin-top: 0;
+      padding-right: 96px;
+    }
+
+    .ex-en {
+      top: 22px;
+    }
   }
 
   .ex-desc {
