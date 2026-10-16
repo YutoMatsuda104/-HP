@@ -22,7 +22,10 @@ lead: 数多ある社会問題に、数学という解決策を目指して。
 motto: 努力は実りづらいが人生は素晴らしい
 
 # 公開用メールアドレス(クリックするとメールアプリが開きます)
-email: 【要入力】name@example.com
+email: yuto.matsuda16@gmail.com
+
+# GitHub(連絡先の欄に表示。載せない場合は行頭に # を付ける)
+github: https://github.com/YutoMatsuda104
 
 # プロフィール写真(src/content/images/ に置いたファイル)
 # 写真を変えるときは、同じ名前で上書きするか、ここのファイル名を変更します。

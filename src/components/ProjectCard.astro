@@ -31,7 +31,7 @@ const meta = [d.category, period].filter(Boolean).join(' ・ ');
       {detail ? <a href={`/projects/${project.id}/`}>{d.title}</a> : d.title}
     </h3>
     {d.result && <p class="result">{d.result}</p>}
-    {d.role && <p class="role">{d.role}</p>}
+    {(d.venue || d.role) && <p class="role">{[d.venue, d.role].filter(Boolean).join(' ・ ')}</p>}
     {d.summary && <p class="summary">{d.summary}</p>}
     {
       d.tech.length > 0 && (

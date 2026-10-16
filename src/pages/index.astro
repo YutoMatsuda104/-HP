@@ -178,6 +178,11 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
           <p class="email">
             <a href={`mailto:${profile.email}`}>{profile.email}</a>
           </p>
+          {profile.github && (
+            <p class="github">
+              GitHub: <a href={profile.github}>{profile.github.replace(/^https?:\/\//, '')}</a>
+            </p>
+          )}
         </div>
       </section>
     )
@@ -403,6 +408,12 @@ const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
   }
 
   /* ── Contact ── */
+  .github {
+    margin-top: 12px;
+    color: var(--muted);
+    word-break: break-all;
+  }
+
   .email {
     margin-top: 16px;
     font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);

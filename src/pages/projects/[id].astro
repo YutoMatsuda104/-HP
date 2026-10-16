@@ -53,6 +53,14 @@ const period = formatPeriod(d.start, d.end);
         )
       }
       {
+        d.venue && (
+          <div>
+            <dt>発表・実施の場</dt>
+            <dd>{d.venue}</dd>
+          </div>
+        )
+      }
+      {
         d.role && (
           <div>
             <dt>役割</dt>
