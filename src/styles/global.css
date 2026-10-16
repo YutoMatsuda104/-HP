@@ -1,30 +1,33 @@
 /* ─────────────────────────────────────────────
    サイト全体のデザイン
-   色や文字サイズは :root の変数をまとめて変えられます。
+   色・文字・角丸の値は DESIGN.md で管理しています。
+   DESIGN.md を変更したら npm run design で tokens.css を作り直します。
+   ここでは、トークンをサイト内で使う短い名前に割り当てています。
    ───────────────────────────────────────────── */
 
+@import './tokens.css';
+
 :root {
-  --bg: #f6f5f1;
-  --surface: #ffffff;
-  --text: #14161a;
-  --muted: #5a5f68;
-  --line: #e2e0d9;
-  --accent: #2443a6;
-  --accent-soft: #e8ecf8;
-  --accent-2: #d9572b;
-  --ink: #0e1730;
-  --ink-text: #f3f4f8;
-  --ink-muted: #a9b1c7;
+  --bg: var(--color-background);
+  --surface: var(--color-surface);
+  --text: var(--color-text);
+  --muted: var(--color-muted);
+  --line: var(--color-line);
+  --accent: var(--color-primary);
+  --accent-soft: var(--color-primary-soft);
+  --accent-2: var(--color-secondary);
+  --ink: var(--color-ink);
+  --ink-text: var(--color-on-ink);
+  --ink-muted: var(--color-ink-muted);
   --dot: rgba(20, 22, 26, 0.09);
 
-  --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
-    "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
-  --font-num: "SF Pro Display", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  --font-sans: var(--type-body-md-family);
+  --font-num: var(--type-number-family);
 
-  --header-h: 60px;
-  --container: 1120px;
-  --measure: 40rem;
-  --radius: 18px;
+  --header-h: var(--space-header);
+  --container: var(--space-container);
+  --measure: var(--space-measure);
+  --radius: var(--rounded-lg);
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
 
   color-scheme: light dark;
@@ -32,17 +35,6 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0d0f13;
-    --surface: #151820;
-    --text: #eceef2;
-    --muted: #a2a8b3;
-    --line: #262a33;
-    --accent: #8ea8ff;
-    --accent-soft: #1a2240;
-    --accent-2: #ff8a5c;
-    --ink: #121a33;
-    --ink-text: #f3f4f8;
-    --ink-muted: #a9b1c7;
     --dot: rgba(255, 255, 255, 0.07);
   }
 }
@@ -135,12 +127,12 @@ ul {
   width: 100%;
   max-width: var(--container);
   margin-inline: auto;
-  padding-inline: 20px;
+  padding-inline: var(--space-gutter-sm);
 }
 
 @media (min-width: 768px) {
   .container {
-    padding-inline: 40px;
+    padding-inline: var(--space-gutter-lg);
   }
 }
 
@@ -161,7 +153,7 @@ ul {
   padding: 8px 14px;
   background: var(--text);
   color: var(--bg);
-  border-radius: 8px;
+  border-radius: var(--rounded-sm);
 }
 
 .skip-link:focus {
@@ -182,7 +174,7 @@ ul {
   gap: 10px;
   font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.18em;
+  letter-spacing: var(--type-label-caps-tracking);
   text-transform: uppercase;
   color: var(--accent);
 }
@@ -206,9 +198,9 @@ ul {
   font-weight: 700;
   line-height: 1.5;
   color: var(--accent-2);
-  background: color-mix(in srgb, var(--accent-2) 12%, transparent);
+  background: color-mix(in srgb, var(--accent-2) 10%, transparent);
   padding: 3px 12px;
-  border-radius: 999px;
+  border-radius: var(--rounded-full);
 }
 
 .badge::before {

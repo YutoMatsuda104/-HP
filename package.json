@@ -12,13 +12,16 @@
     "preview": "astro preview",
     "check": "astro check",
     "check:content": "node scripts/check-placeholders.mjs",
-    "qr": "node scripts/make-qr.mjs"
+    "qr": "node scripts/make-qr.mjs",
+    "design": "node scripts/design-tokens.mjs",
+    "design:lint": "design.md lint DESIGN.md"
   },
   "dependencies": {
     "astro": "^7.4.0"
   },
   "devDependencies": {
     "@astrojs/check": "^0.9.10",
+    "@google/design.md": "^0.4.0",
     "qrcode": "^1.5.4",
     "typescript": "^6.0.3"
   }

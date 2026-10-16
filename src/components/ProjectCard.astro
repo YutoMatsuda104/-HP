@@ -98,16 +98,16 @@ const period = formatPeriod(d.start, d.end);
     justify-content: flex-end;
     gap: 6px;
     padding: 22px;
-    color: #fff;
+    color: var(--color-on-primary);
     background-color: var(--ink);
   }
 
   .kind-paper .cover-type {
-    background-color: #2443a6;
+    background-color: var(--color-cover-paper);
   }
 
   .kind-activity .cover-type {
-    background-color: #b8461f;
+    background-color: var(--color-cover-activity);
   }
 
   .cover-kind {
@@ -139,7 +139,7 @@ const period = formatPeriod(d.start, d.end);
     background: color-mix(in srgb, var(--surface) 92%, transparent);
     backdrop-filter: blur(6px);
     padding: 3px 10px;
-    border-radius: 999px;
+    border-radius: var(--rounded-full);
   }
 
   .content {
@@ -209,7 +209,7 @@ const period = formatPeriod(d.start, d.end);
     color: var(--muted);
     border: 1px solid var(--line);
     padding: 1px 10px;
-    border-radius: 999px;
+    border-radius: var(--rounded-full);
   }
 
   .more {

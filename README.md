@@ -20,6 +20,7 @@
 ヘッダーとフッターのメニューは `src/nav.ts` で管理しています。
 
 ```
+DESIGN.md             ← デザインの決まりごと(色・文字・角丸など)
 src/
   content/            ← ★ 普段編集するのはここだけ
     profile.yaml        基本情報(氏名・所属・メールアドレス・写真)
@@ -33,7 +34,8 @@ src/
   nav.ts              メニューの項目
   layouts/            全ページ共通の枠(ヘッダー・SEO・OGP)
   pages/              ページ(トップ・詳細・404・サイトマップ)
-  styles/global.css   色・文字サイズなどのデザイン設定
+  styles/tokens.css   DESIGN.md から自動生成される色・文字の変数(直接編集しない)
+  styles/global.css   サイト全体の共通スタイル
   content.config.ts   コンテンツの項目定義
 public/               そのまま公開されるファイル(OGP画像・アイコン)
 scripts/              QRコード作成・公開前チェック
@@ -43,7 +45,8 @@ docs/                 移管時の資料(情報の一覧と確認事項)
 ## ② 使用している技術
 
 - **Astro**(静的サイト生成)+ **TypeScript**
-- 依存パッケージは `astro` のみ。開発用に `@astrojs/check`・`typescript`(型チェック)、`qrcode`(QRコード作成)
+- 依存パッケージは `astro` のみ。開発用に `@astrojs/check`・`typescript`(型チェック)、`qrcode`(QRコード作成)、`@google/design.md`(DESIGN.md のチェックと変換)
+- デザインは [DESIGN.md](DESIGN.md)(Google の DESIGN.md 形式)で管理しています
 - サーバー・データベース・CMS・アクセス解析・Cookie・外部フォントは使っていません
 - ホスティング: **Cloudflare Pages**(無料プラン)、ソース管理: **GitHub**
 
@@ -189,3 +192,21 @@ npm run check:content
 
 `npm run build` で作られる `dist/` は普通のHTMLファイルなので、GitHub Pages・Netlify・Vercelなど、どの静的サイトホスティングにも同じ設定(ビルドコマンド `npm run build`、出力先 `dist`)で移せます。Cloudflare専用の機能は使っていません。
 ただし、URLが変わると名刺の再印刷が必要になる点に注意してください(`docs/content-inventory.md` の「公開URLの選び方」を参照)。
+
+## ⑮ デザイン(色・文字)の変更方法
+
+デザインの決まりごとは、リポジトリ直下の `DESIGN.md` にまとめています(Google が公開している [DESIGN.md 形式](https://github.com/google-labs-code/design.md))。
+上の `---` で囲まれた部分が実際の値(トークン)、下の文章がその使い方の説明です。AIにデザインの修正を頼むときも、このファイルを渡せば同じ雰囲気を保てます。
+
+1. `DESIGN.md` の値を書き換える(例: `primary: "#2443A6"` を別の色に)
+2. 次を実行して、チェックと `src/styles/tokens.css` の作り直しをする
+
+```sh
+npm run design       # DESIGN.md をチェックして tokens.css を作り直す
+npm run design:lint  # チェックだけ(文字と背景のコントラスト不足なども教えてくれます)
+```
+
+3. `DESIGN.md` と `tokens.css` の両方をコミットする
+
+- 名前が `-dark` で終わる色は、ダークモードのときに使われます(例: `primary-dark`)
+- `tokens.css` は自動生成なので直接編集しないでください
