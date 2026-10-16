@@ -20,7 +20,7 @@ const { eyebrow, title, lead } = Astro.props;
   .page-header {
     position: relative;
     overflow: hidden;
-    border-bottom: 1px solid var(--line);
+    border-bottom: 3px double var(--text);
     margin-bottom: 56px;
   }
 
@@ -35,11 +35,11 @@ const { eyebrow, title, lead } = Astro.props;
     bottom: -0.22em;
     font-family: var(--font-num);
     font-size: clamp(4rem, 2rem + 10vw, 10rem);
-    font-weight: 800;
+    font-weight: var(--weight-heading);
     letter-spacing: -0.02em;
     line-height: 1;
     color: transparent;
-    -webkit-text-stroke: 1px color-mix(in srgb, var(--accent) 25%, transparent);
+    -webkit-text-stroke: 1px color-mix(in srgb, var(--muted) 30%, transparent);
     text-transform: uppercase;
     pointer-events: none;
     user-select: none;
@@ -48,7 +48,7 @@ const { eyebrow, title, lead } = Astro.props;
   .page-title {
     margin-top: 12px;
     font-size: clamp(2rem, 1.4rem + 2.4vw, 3rem);
-    font-weight: 800;
+    font-weight: var(--weight-heading);
   }
 
   .page-lead {

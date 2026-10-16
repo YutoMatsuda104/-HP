@@ -74,7 +74,7 @@ const activities = projects.filter((p) => p.data.kind === 'activity');
     align-items: center;
     gap: 8px;
     padding: 8px 16px;
-    border-radius: var(--rounded-full);
+    border-radius: var(--rounded-sm);
     border: 1px solid var(--line);
     background: var(--surface);
     color: var(--text);
@@ -93,7 +93,7 @@ const activities = projects.filter((p) => p.data.kind === 'activity');
     font-size: 0.75rem;
     color: var(--bg);
     background: var(--text);
-    border-radius: var(--rounded-full);
+    border-radius: var(--rounded-sm);
     min-width: 1.6em;
     text-align: center;
   }
@@ -107,7 +107,7 @@ const activities = projects.filter((p) => p.data.kind === 'activity');
     margin-top: 8px;
     margin-bottom: 28px;
     font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
-    font-weight: 800;
+    font-weight: var(--weight-heading);
   }
 
   .grid {

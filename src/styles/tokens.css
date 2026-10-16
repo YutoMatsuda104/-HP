@@ -1,66 +1,60 @@
 /* このファイルは自動生成です。直接編集せず、DESIGN.md を変更して npm run design を実行してください。 */
 
 :root {
-  --color-primary: #2443a6;
-  --color-on-primary: #ffffff;
-  --color-primary-soft: #e8ecf8;
-  --color-secondary: #ad411b;
-  --color-background: #f6f5f1;
-  --color-surface: #ffffff;
-  --color-text: #14161a;
-  --color-muted: #5a5f68;
-  --color-line: #e2e0d9;
-  --color-ink: #0e1730;
-  --color-on-ink: #f3f4f8;
-  --color-ink-muted: #a9b1c7;
-  --color-cover-paper: #2443a6;
-  --color-cover-activity: #b8461f;
-  --color-success: #22a06b;
-  --rounded-sm: 8px;
-  --rounded-md: 12px;
-  --rounded-lg: 18px;
-  --rounded-xl: 24px;
-  --rounded-full: 999px;
+  --color-primary: #1a1c1e;
+  --color-on-primary: #f7f5f2;
+  --color-secondary: #666c72;
+  --color-tertiary: #b8422e;
+  --color-on-tertiary: #ffffff;
+  --color-neutral: #f7f5f2;
+  --color-surface: #fdfcfa;
+  --color-stone: #ece8e1;
+  --color-line: #e0dcd4;
+  --color-ink-muted: #a3a7ad;
+  --color-cover-paper: #4a5058;
+  --rounded-sm: 4px;
+  --rounded-md: 8px;
+  --space-sm: 8px;
+  --space-md: 16px;
   --space-gutter-sm: 20px;
   --space-gutter-lg: 40px;
   --space-container: 1120px;
   --space-measure: 40rem;
   --space-header: 60px;
-  --type-display-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+  --type-display-family: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
   --type-display-size: 5rem;
-  --type-display-weight: 800;
-  --type-display-tracking: 0.03em;
-  --type-h1-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+  --type-display-weight: 700;
+  --type-display-tracking: 0.02em;
+  --type-h1-family: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
   --type-h1-size: 3rem;
-  --type-h1-weight: 800;
-  --type-h1-tracking: 0.03em;
-  --type-h2-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+  --type-h1-weight: 700;
+  --type-h1-tracking: 0.02em;
+  --type-h2-family: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
   --type-h2-size: 2.25rem;
-  --type-h2-weight: 800;
-  --type-h2-tracking: 0.03em;
-  --type-body-md-family: -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
+  --type-h2-weight: 700;
+  --type-h2-tracking: 0.02em;
+  --type-body-md-family: 'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif;
   --type-body-md-size: 1.0625rem;
   --type-body-md-weight: 400;
   --type-body-md-tracking: 0.02em;
-  --type-label-caps-family: 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+  --type-label-caps-family: 'Space Grotesk Variable', 'Public Sans Variable', 'Helvetica Neue', Arial, sans-serif;
   --type-label-caps-size: 0.75rem;
-  --type-label-caps-weight: 700;
-  --type-label-caps-tracking: 0.18em;
-  --type-number-family: 'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif;
+  --type-label-caps-weight: 500;
+  --type-label-caps-tracking: 0.16em;
+  --type-number-family: 'Space Grotesk Variable', 'Public Sans Variable', 'Helvetica Neue', Arial, sans-serif;
   --type-number-size: 0.875rem;
-  --type-number-weight: 700;
+  --type-number-weight: 500;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #8ea8ff;
-    --color-primary-soft: #1a2240;
-    --color-secondary: #ff8a5c;
-    --color-background: #0d0f13;
-    --color-surface: #151820;
-    --color-text: #eceef2;
-    --color-muted: #a2a8b3;
-    --color-line: #262a33;
-    --color-ink: #121a33;
+    --color-primary: #ece9e4;
+    --color-secondary: #9a9fa6;
+    --color-tertiary: #e07a62;
+    --color-neutral: #121314;
+    --color-surface: #1a1c1e;
+    --color-stone: #25282c;
+    --color-line: #2c2f33;
+    --color-ink: #0a0b0c;
   }
 }

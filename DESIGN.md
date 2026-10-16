@@ -1,73 +1,67 @@
 ---
 version: alpha
-name: Yuto Matsuda Homepage
-description: 松田悠杜の個人ホームページのデザインシステム。数学のノートのような落ち着いた紙の色に、深い青と朱色の差し色を合わせる。
+name: Heritage — Yuto Matsuda
+description: 松田悠杜の個人ホームページのデザインシステム。Google DESIGN.md のサンプル「Heritage」をもとに、上質な新聞やギャラリーのような落ち着いた紙面に、差し色を1色だけ使う。
 colors:
-  primary: "#2443A6"
-  on-primary: "#FFFFFF"
-  primary-soft: "#E8ECF8"
-  secondary: "#AD411B"
-  background: "#F6F5F1"
-  surface: "#FFFFFF"
-  text: "#14161A"
-  muted: "#5A5F68"
-  line: "#E2E0D9"
-  ink: "#0E1730"
-  on-ink: "#F3F4F8"
-  ink-muted: "#A9B1C7"
-  cover-paper: "#2443A6"
-  cover-activity: "#B8461F"
-  success: "#22A06B"
-  primary-dark: "#8EA8FF"
-  primary-soft-dark: "#1A2240"
-  secondary-dark: "#FF8A5C"
-  background-dark: "#0D0F13"
-  surface-dark: "#151820"
-  text-dark: "#ECEEF2"
-  muted-dark: "#A2A8B3"
-  line-dark: "#262A33"
-  ink-dark: "#121A33"
+  primary: "#1A1C1E"
+  on-primary: "#F7F5F2"
+  secondary: "#666C72"
+  tertiary: "#B8422E"
+  on-tertiary: "#FFFFFF"
+  neutral: "#F7F5F2"
+  surface: "#FDFCFA"
+  stone: "#ECE8E1"
+  line: "#E0DCD4"
+  ink-muted: "#A3A7AD"
+  cover-paper: "#4A5058"
+  primary-dark: "#ECE9E4"
+  secondary-dark: "#9A9FA6"
+  tertiary-dark: "#E07A62"
+  neutral-dark: "#121314"
+  surface-dark: "#1A1C1E"
+  stone-dark: "#25282C"
+  line-dark: "#2C2F33"
+  ink-dark: "#0A0B0C"
 typography:
   display:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
+    fontFamily: "'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
     fontSize: 5rem
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.15
-    letterSpacing: 0.03em
+    letterSpacing: 0.02em
   h1:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
+    fontFamily: "'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
     fontSize: 3rem
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.4
-    letterSpacing: 0.03em
+    letterSpacing: 0.02em
   h2:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
+    fontFamily: "'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
     fontSize: 2.25rem
-    fontWeight: 800
+    fontWeight: 700
     lineHeight: 1.4
-    letterSpacing: 0.03em
+    letterSpacing: 0.02em
   body-md:
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
+    fontFamily: "'Public Sans Variable', -apple-system, BlinkMacSystemFont, 'Hiragino Sans', 'Hiragino Kaku Gothic ProN', 'Noto Sans JP', 'Yu Gothic UI', 'Yu Gothic', Meiryo, system-ui, sans-serif"
     fontSize: 1.0625rem
     fontWeight: 400
     lineHeight: 1.9
     letterSpacing: 0.02em
   label-caps:
-    fontFamily: "'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif"
+    fontFamily: "'Space Grotesk Variable', 'Public Sans Variable', 'Helvetica Neue', Arial, sans-serif"
     fontSize: 0.75rem
-    fontWeight: 700
-    letterSpacing: 0.18em
+    fontWeight: 500
+    letterSpacing: 0.16em
   number:
-    fontFamily: "'SF Pro Display', 'Helvetica Neue', 'Segoe UI', Roboto, Arial, sans-serif"
+    fontFamily: "'Space Grotesk Variable', 'Public Sans Variable', 'Helvetica Neue', Arial, sans-serif"
     fontSize: 0.875rem
-    fontWeight: 700
+    fontWeight: 500
 rounded:
-  sm: 8px
-  md: 12px
-  lg: 18px
-  xl: 24px
-  full: 999px
+  sm: 4px
+  md: 8px
 spacing:
+  sm: 8px
+  md: 16px
   gutter-sm: 20px
   gutter-lg: 40px
   container: 1120px
@@ -75,127 +69,133 @@ spacing:
   header: 60px
 components:
   page:
-    backgroundColor: "{colors.background}"
-    textColor: "{colors.text}"
+    backgroundColor: "{colors.neutral}"
+    textColor: "{colors.primary}"
     typography: "{typography.body-md}"
   page-dark:
-    backgroundColor: "{colors.background-dark}"
-    textColor: "{colors.text-dark}"
+    backgroundColor: "{colors.neutral-dark}"
+    textColor: "{colors.primary-dark}"
   card:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.text}"
-    rounded: "{rounded.lg}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
   card-dark:
     backgroundColor: "{colors.surface-dark}"
-    textColor: "{colors.text-dark}"
+    textColor: "{colors.primary-dark}"
   caption:
-    backgroundColor: "{colors.surface}"
-    textColor: "{colors.muted}"
+    backgroundColor: "{colors.neutral}"
+    textColor: "{colors.secondary}"
   caption-dark:
-    backgroundColor: "{colors.surface-dark}"
-    textColor: "{colors.muted-dark}"
+    backgroundColor: "{colors.neutral-dark}"
+    textColor: "{colors.secondary-dark}"
   divider:
     backgroundColor: "{colors.line}"
   divider-dark:
     backgroundColor: "{colors.line-dark}"
-  button-primary:
-    backgroundColor: "{colors.primary}"
-    textColor: "{colors.on-primary}"
-    rounded: "{rounded.full}"
-    padding: 12px 22px
+  link:
+    backgroundColor: "{colors.neutral}"
+    textColor: "{colors.tertiary}"
   link-dark:
-    backgroundColor: "{colors.background-dark}"
-    textColor: "{colors.primary-dark}"
+    backgroundColor: "{colors.neutral-dark}"
+    textColor: "{colors.tertiary-dark}"
+  button-primary:
+    backgroundColor: "{colors.tertiary}"
+    textColor: "{colors.on-tertiary}"
+    rounded: "{rounded.sm}"
+    padding: 12px 22px
+  button-secondary:
+    backgroundColor: "{colors.neutral}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
+    padding: 12px 22px
   chip:
-    backgroundColor: "{colors.primary-soft}"
-    textColor: "{colors.text}"
-    rounded: "{rounded.full}"
-    padding: 4px 14px
+    backgroundColor: "{colors.stone}"
+    textColor: "{colors.primary}"
+    rounded: "{rounded.sm}"
+    padding: 3px 12px
   chip-dark:
-    backgroundColor: "{colors.primary-soft-dark}"
-    textColor: "{colors.text-dark}"
+    backgroundColor: "{colors.stone-dark}"
+    textColor: "{colors.primary-dark}"
   badge:
     backgroundColor: "{colors.surface}"
-    textColor: "{colors.secondary}"
-    rounded: "{rounded.full}"
-    padding: 3px 12px
-  badge-dark:
-    backgroundColor: "{colors.surface-dark}"
-    textColor: "{colors.secondary-dark}"
+    textColor: "{colors.tertiary}"
+    rounded: "{rounded.sm}"
   band:
-    backgroundColor: "{colors.ink}"
-    textColor: "{colors.on-ink}"
+    backgroundColor: "{colors.primary}"
+    textColor: "{colors.on-primary}"
   band-caption:
-    backgroundColor: "{colors.ink}"
+    backgroundColor: "{colors.primary}"
     textColor: "{colors.ink-muted}"
   band-dark:
     backgroundColor: "{colors.ink-dark}"
-    textColor: "{colors.on-ink}"
+    textColor: "{colors.on-primary}"
+  nav-active-dark:
+    backgroundColor: "{colors.stone-dark}"
+    textColor: "{colors.primary-dark}"
   cover-paper:
     backgroundColor: "{colors.cover-paper}"
-    textColor: "{colors.on-primary}"
-  cover-activity:
-    backgroundColor: "{colors.cover-activity}"
-    textColor: "{colors.on-primary}"
-  status-dot:
-    backgroundColor: "{colors.success}"
-    size: 8px
+    textColor: "{colors.on-tertiary}"
 ---
 
-# Yuto Matsuda Homepage — DESIGN.md
+# Heritage — DESIGN.md
 
 このファイルがサイトのデザインの「正本」です。上の `---` で囲まれた部分(トークン)を書き換えて
 `npm run design` を実行すると、`src/styles/tokens.css` が作り直され、サイト全体の色・文字・角丸に反映されます。
 
 ## Overview
 
-数学のノート(方眼紙)をモチーフにした、落ち着いた個人ホームページ。
-白すぎない紙の色の背景にドット模様を敷き、見出しは太く大きく、差し色は青(主)と朱色(受賞・強調)の2色だけに絞る。
-派手な装飾より、読みやすさと情報の見つけやすさを優先する。トラッカーや外部フォントは使わない。
+Architectural Minimalism meets Journalistic Gravitas(建築的なミニマリズムと、報道紙面の重み)。
+Google の DESIGN.md サンプル「Heritage」をもとにしたデザイン。上質な新聞や現代美術のギャラリーのような、
+マットで落ち着いた紙面を目指す。装飾よりも余白・罫線・文字組みで品位を出し、色は差し色1色に絞る。
+トラッカーや外部への通信は使わない(フォントもサイト内に同梱して配信する)。
 
 ## Colors
 
-- **Primary (#2443A6):** 深い青。リンク、ボタン、見出し前のライン、選択中のメニューに使う。
-- **Secondary (#AD411B):** 朱色。受賞バッジ(★)と番号など、目を引かせたい小さな要素だけに使う。面積を広く使わない。
-- **Background (#F6F5F1):** 少し温かい紙の色。真っ白よりも目にやさしい。
-- **Surface (#FFFFFF):** カードやパネルの面。
-- **Ink (#0E1730):** 数字の帯(ホームの実績)など、濃い面に使う紺色。
-- **Cover paper / Cover activity:** 写真のない研究・活動カードの自動表紙の色(論文=青、活動=赤茶)。
-- **Success (#22A06B):** ホームの「Now」の点だけに使う。
+コントラストの高いニュートラルと、ただ1つの差し色で構成する。
+
+- **Primary (#1A1C1E):** 深いインク色。見出しと本文、数字の帯、黒いボタン。
+- **Secondary (#666C72):** 落ち着いたスレート。補足・日付・キャプション。
+- **Tertiary (#B8422E):** "Boston Clay"(赤土色)。リンク・主ボタン・受賞バッジなど、操作と強調だけに使う唯一の差し色。
+- **Neutral (#F7F5F2):** 温かい石灰岩のような背景。純白よりやわらかい。
+- **Surface (#FDFCFA) / Stone (#ECE8E1):** カードの面と、チップ・選択中メニューの面。
+- **Cover paper (#4A5058):** 写真のない論文カードの自動表紙。研究はインク色、活動は赤土色。
 - 名前が `-dark` で終わる色は、端末がダークモードのときに同じ名前の色と入れ替わる。
 
 ## Typography
 
-- 日本語は端末標準のゴシック体(ヒラギノ・Noto Sans JP・游ゴシック)。Webフォントは読み込まない。
-- 数字・英字ラベルは `number` / `label-caps`(SF Pro・Helvetica系)。年月や件数をすっきり見せる。
-- 見出しは画面幅に応じて伸び縮みする(`display` 最大5rem、`h1` 最大3rem、`h2` 最大2.25rem)。
+- 欧文は **Public Sans**(本文・見出し)、英字ラベルと数字は **Space Grotesk**。どちらもサイト内に同梱。
+- 日本語は端末標準のゴシック体(ヒラギノ・Noto Sans JP・游ゴシック)。
+- 見出しは太さ700で、大きさで階層を作る。英字ラベルはすべて大文字・字間を広く。
 - 本文は行間1.9、字間0.02em。見出しには `palt`(約物詰め)をかける。
 
 ## Layout
 
 - 1ページ1テーマのホームページ型(ホーム・自己紹介・経歴・研究・活動・スキル・連絡先)。1枚の縦長LPにはしない。
 - 本文の最大幅は1120px、文章は40remまでで折り返す。左右の余白はスマホ20px、PC40px。
-- ページ上部は、ドット模様の背景に大きな英字の透かし(PageHeader)を置いて統一する。
+- セクションは細い罫線で区切る。ページ見出しの下は新聞の題字のような二重線。
 
 ## Elevation & Depth
 
-- 基本は線(`line`)で区切り、影は使わない。カードにマウスを乗せたときだけ、わずかに浮かせて影を出す。
+- 影もグラデーションも使わない。奥行きは罫線と面の色の差だけで表す。
+- カードにマウスを乗せたときは、枠線が差し色に変わるだけにする。
 
 ## Shapes
 
-- ホームの写真枠など大きな面は `xl`(24px)、カード・パネルは `lg`(18px)、資格カードは `md`(12px)、チップ・ボタン・バッジは `full`(丸)。
+- 角はほぼ直角。カード・写真・ボタン・チップは `sm`(4px)、大きめのパネルは `md`(8px)。丸いピル型は使わない。
 
 ## Components
 
-- **card:** 白い面に細い線。研究・活動のカード、スキル表、資格カード。
-- **chip:** 薄い青の丸いラベル。スキルの項目など。
-- **badge:** 朱色の文字に★。受賞結果だけに使う。
-- **band:** 紺色の帯。ホームの実績数(論文・受賞・資格)。
-- **button-primary:** 青い丸ボタン。ホームの主な行動(研究を見る・連絡する)。
+- **card:** 少し明るい紙の面に細い罫線。研究・活動のカード、スキル表、資格カード。
+- **chip:** 石色の四角いラベル。スキルの項目など。
+- **badge:** 赤土色の文字に細い枠。受賞結果だけに使う。
+- **band:** インク色の帯。ホームの実績数(論文・受賞・資格)。
+- **button-primary:** 赤土色の四角いボタン。ホームの主な行動。もう一方は枠線だけのボタン。
 
 ## Do's and Don'ts
 
 - Do: 色を足すときは、まずこのファイルにトークンとして追加してから使う。
+- Do: 余白と罫線で区切る。迷ったら要素を減らす。
 - Do: 動きは控えめに。端末の「視差効果を減らす」設定ではアニメーションを止める。
-- Don't: 差し色を3色以上に増やさない。朱色を広い面に使わない。
+- Don't: 赤土色を広い面に使わない。差し色を2色以上にしない。
+- Don't: 影・グラデーション・丸いピル型を使わない。
 - Don't: 経歴や実績を大きく見せるための誇張した装飾(偽の数字、ランキング風の表現)を使わない。

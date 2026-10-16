@@ -45,9 +45,9 @@ docs/                 移管時の資料(情報の一覧と確認事項)
 ## ② 使用している技術
 
 - **Astro**(静的サイト生成)+ **TypeScript**
-- 依存パッケージは `astro` のみ。開発用に `@astrojs/check`・`typescript`(型チェック)、`qrcode`(QRコード作成)、`@google/design.md`(DESIGN.md のチェックと変換)
+- 依存パッケージは `astro` と同梱フォント(`@fontsource-variable/public-sans`・`space-grotesk`)。開発用に `@astrojs/check`・`typescript`(型チェック)、`qrcode`(QRコード作成)、`@google/design.md`(DESIGN.md のチェックと変換)
 - デザインは [DESIGN.md](DESIGN.md)(Google の DESIGN.md 形式)で管理しています
-- サーバー・データベース・CMS・アクセス解析・Cookie・外部フォントは使っていません
+- サーバー・データベース・CMS・アクセス解析・Cookieは使っていません。フォント(Public Sans・Space Grotesk)はサイト内に同梱して配信するため、外部への通信はありません
 - ホスティング: **Cloudflare Pages**(無料プラン)、ソース管理: **GitHub**
 
 ## ③ ローカルでの起動方法

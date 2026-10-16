@@ -75,7 +75,7 @@ const groups = skills?.groups ?? [];
 
   .block-head h2 {
     font-size: clamp(1.5rem, 1.2rem + 1vw, 1.875rem);
-    font-weight: 800;
+    font-weight: var(--weight-heading);
   }
 
   /* 資格: 取得年月と名前を大きく並べる */
@@ -134,7 +134,7 @@ const groups = skills?.groups ?? [];
     display: flex;
     align-items: baseline;
     gap: 10px;
-    font-weight: 800;
+    font-weight: var(--weight-heading);
     font-size: 1.0625rem;
   }
 
@@ -159,7 +159,7 @@ const groups = skills?.groups ?? [];
     font-size: 0.9375rem;
     line-height: 1.6;
     padding: 4px 14px;
-    border-radius: var(--rounded-full);
+    border-radius: var(--rounded-sm);
     background: var(--accent-soft);
     color: var(--text);
   }
