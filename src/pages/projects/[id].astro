@@ -152,8 +152,11 @@ const period = formatPeriod(d.start, d.end);
     max-width: var(--measure);
   }
 
+  /* 縦長の写真が大きくなりすぎないよう、高さに上限を付ける */
   .cover {
-    width: 100%;
+    width: auto;
+    max-width: 100%;
+    max-height: 560px;
     margin-top: 40px;
     border-radius: var(--radius);
   }

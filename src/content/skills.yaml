@@ -22,11 +22,13 @@ groups:
       - 機械学習
       - 深層学習
   - name: プログラミング
+    text: Pythonを中心に、データ分析や機械学習のコードを書いています。HTML・CSS・JavaScriptは、Webページの制作に使っています。
     items:
       - Python
       - HTML / CSS
       - JavaScript
   - name: ツール
+    text: GitHubでコードを管理し、NotionやGoogleのサービスで情報やタスクを整理しています。チームでの共同作業を円滑に進めるために活用しています。
     items:
       - GitHub
       - Notion
@@ -38,6 +40,7 @@ groups:
       - 簿記
       - 会計知識
   - name: 教育
+    text: 高校在学中から大学まで、塾講師として通算約6年、個別指導に携わってきました。相手に合わせて分かりやすく伝える力は、研究発表や仕事にも活かしています。
     items:
       - 個別指導(塾講師 通算約6年)
 
