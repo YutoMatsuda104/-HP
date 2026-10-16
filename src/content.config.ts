@@ -1,0 +1,105 @@
+import { defineCollection } from 'astro:content';
+import { glob } from 'astro/loaders';
+import { z } from 'astro/zod';
+
+// コンテンツの「形」を定義するファイルです。
+// 文章や経歴そのものは src/content/ 以下のファイルで編集します。
+
+/** 「2024-04」のような年月。経歴やプロジェクトの並び順に使います。 */
+const yearMonth = z
+  .union([z.string(), z.number(), z.date()])
+  .transform((v) => (v instanceof Date ? v.toISOString().slice(0, 7) : String(v)))
+  .refine((v) => /^\d{4}(-\d{1,2})?$/.test(v), {
+    message: '年月は「2024-04」または「2024」の形式で書いてください',
+  });
+
+const link = z.object({
+  label: z.string(),
+  url: z.string(),
+});
+
+const profile = defineCollection({
+  loader: glob({ pattern: 'profile.yaml', base: './src/content' }),
+  schema: ({ image }) =>
+    z.object({
+      name: z.string(),
+      nameReading: z.string().optional(),
+      nameEn: z.string().optional(),
+      affiliation: z.string().optional(),
+      lead: z.string().optional(),
+      motto: z.string().optional(),
+      email: z.string().optional(),
+      photo: image().optional(),
+      photoAlt: z.string().optional(),
+      siteDescription: z.string(),
+    }),
+});
+
+const about = defineCollection({
+  loader: glob({ pattern: 'about.md', base: './src/content' }),
+  schema: z.object({
+    specialties: z.array(z.string()).default([]),
+    goal: z.string().optional(),
+    future: z.string().optional(),
+  }),
+});
+
+const experienceItem = z.object({
+  period: z.string().optional(),
+  organization: z.string(),
+  title: z.string().optional(),
+  description: z.string().optional(),
+});
+
+const experience = defineCollection({
+  loader: glob({ pattern: 'experience.yaml', base: './src/content' }),
+  schema: z.object({
+    education: z.array(experienceItem).default([]),
+    work: z.array(experienceItem).default([]),
+  }),
+});
+
+const skills = defineCollection({
+  loader: glob({ pattern: 'skills.yaml', base: './src/content' }),
+  schema: z.object({
+    groups: z
+      .array(
+        z.object({
+          name: z.string(),
+          note: z.string().optional(),
+          items: z.array(z.string()),
+        }),
+      )
+      .default([]),
+    certifications: z
+      .array(
+        z.object({
+          name: z.string(),
+          date: yearMonth.optional(),
+        }),
+      )
+      .default([]),
+  }),
+});
+
+const projects = defineCollection({
+  // ファイル名が「_」で始まるもの(テンプレート)は読み込みません
+  loader: glob({ pattern: '[!_]*.md', base: './src/content/projects' }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      start: yearMonth.optional(),
+      end: z.union([yearMonth, z.literal('現在')]).optional(),
+      category: z.string().optional(),
+      result: z.string().optional(),
+      summary: z.string().optional(),
+      role: z.string().optional(),
+      tech: z.array(z.string()).default([]),
+      cover: image().optional(),
+      coverAlt: z.string().optional(),
+      links: z.array(link).default([]),
+      draft: z.boolean().default(false),
+    }),
+});
+
+export const collections = { profile, about, experience, skills, projects };

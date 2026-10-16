@@ -1,0 +1,412 @@
+---
+import { Picture } from 'astro:assets';
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import SectionHead from '../components/SectionHead.astro';
+import Timeline from '../components/Timeline.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+import { formatYm, getProfile, getProjects } from '../lib';
+
+const profile = await getProfile();
+const about = await getEntry('about', 'about');
+const experience = (await getEntry('experience', 'experience'))?.data;
+const skills = (await getEntry('skills', 'skills'))?.data;
+const projects = await getProjects();
+const { Content: AboutBody } = about ? await render(about) : { Content: null };
+
+const initial = (profile.nameEn ?? profile.name).trim().charAt(0);
+---
+
+<Base>
+  <!-- Home -->
+  <section class="hero" aria-labelledby="hero-name">
+    <div class="container hero-inner">
+      <div class="hero-photo fade-in">
+        {
+          profile.photo ? (
+            <Picture
+              src={profile.photo}
+              alt={profile.photoAlt ?? profile.name}
+              widths={[400, 640, 960]}
+              sizes="(min-width: 900px) 420px, (min-width: 640px) 60vw, 100vw"
+              formats={['avif', 'webp']}
+              width={960}
+              loading="eager"
+              fetchpriority="high"
+            />
+          ) : (
+            <div class="monogram" aria-hidden="true">{initial}</div>
+          )
+        }
+      </div>
+      <div class="hero-text fade-in">
+        {profile.nameEn && <p class="name-en">{profile.nameEn}</p>}
+        <h1 id="hero-name" class="name">
+          {profile.name}
+          {profile.nameReading && <span class="visually-hidden">({profile.nameReading})</span>}
+        </h1>
+        {profile.affiliation && <p class="affiliation">{profile.affiliation}</p>}
+        {profile.lead && <p class="lead">{profile.lead}</p>}
+      </div>
+    </div>
+  </section>
+
+  <!-- About -->
+  {
+    about && (
+      <section id="about" class="section" aria-labelledby="about-title">
+        <div class="container">
+          <SectionHead id="about" eyebrow="About" title="自己紹介" />
+          <div class="about-grid">
+            <div>
+              {profile.motto && (
+                <blockquote class="motto reveal">
+                  <p>「{profile.motto}」</p>
+                </blockquote>
+              )}
+              <div class="prose reveal">{AboutBody && <AboutBody />}</div>
+            </div>
+            <aside class="about-facts reveal" aria-label="プロフィール概要">
+              <dl>
+                {about.data.specialties.length > 0 && (
+                  <div>
+                    <dt>専門</dt>
+                    <dd>{about.data.specialties.join(' / ')}</dd>
+                  </div>
+                )}
+                {about.data.goal && (
+                  <div>
+                    <dt>目標</dt>
+                    <dd>{about.data.goal}</dd>
+                  </div>
+                )}
+                {profile.affiliation && (
+                  <div>
+                    <dt>所属</dt>
+                    <dd>{profile.affiliation}</dd>
+                  </div>
+                )}
+              </dl>
+            </aside>
+          </div>
+          {about.data.future && (
+            <div class="future reveal">
+              <h3>これから</h3>
+              <p>{about.data.future}</p>
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Experience -->
+  {
+    experience && (experience.education.length > 0 || experience.work.length > 0) && (
+      <section id="experience" class="section" aria-labelledby="experience-title">
+        <div class="container">
+          <SectionHead id="experience" eyebrow="Experience" title="経歴" />
+          {experience.education.length > 0 && <Timeline heading="学歴" items={experience.education} />}
+          {experience.work.length > 0 && <Timeline heading="職歴・活動" items={experience.work} />}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Projects -->
+  {
+    projects.length > 0 && (
+      <section id="projects" class="section" aria-labelledby="projects-title">
+        <div class="container">
+          <SectionHead id="projects" eyebrow="Projects" title="研究・活動実績" />
+          <div class="project-grid">
+            {projects.map((p) => (
+              <ProjectCard project={p} />
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Skills -->
+  {
+    skills && (skills.groups.length > 0 || skills.certifications.length > 0) && (
+      <section id="skills" class="section" aria-labelledby="skills-title">
+        <div class="container">
+          <SectionHead id="skills" eyebrow="Skills" title="専門性・スキル" />
+          <dl class="skill-list">
+            {skills.groups.map((g) => (
+              <div class="skill-row reveal">
+                <dt>{g.name}</dt>
+                <dd>
+                  <ul class="skill-items">
+                    {g.items.map((item) => (
+                      <li>{item}</li>
+                    ))}
+                  </ul>
+                  {g.note && <p class="muted note">{g.note}</p>}
+                </dd>
+              </div>
+            ))}
+          </dl>
+          {skills.certifications.length > 0 && (
+            <div class="certs reveal">
+              <h3 class="certs-title">資格</h3>
+              <ul>
+                {skills.certifications.map((c) => (
+                  <li>
+                    <span>{c.name}</span>
+                    {c.date && <span class="muted cert-date">{formatYm(c.date)} 取得</span>}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </section>
+    )
+  }
+
+  <!-- Contact -->
+  {
+    profile.email && (
+      <section id="contact" class="section contact" aria-labelledby="contact-title">
+        <div class="container">
+          <SectionHead id="contact" eyebrow="Contact" title="連絡先" />
+          <p class="muted">ご連絡は、以下のメールアドレスまでお願いいたします。</p>
+          <p class="email">
+            <a href={`mailto:${profile.email}`}>{profile.email}</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+</Base>
+
+<style>
+  /* ── Home ── */
+  .hero {
+    padding-block: 32px 64px;
+  }
+
+  .hero-inner {
+    display: grid;
+    gap: 32px;
+    align-items: center;
+  }
+
+  .hero-photo :global(img),
+  .monogram {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    object-position: 60% 30%;
+    border-radius: 20px;
+    background: var(--line);
+  }
+
+  .monogram {
+    display: grid;
+    place-items: center;
+    font-size: 5rem;
+    font-weight: 700;
+    color: var(--muted);
+  }
+
+  .name-en {
+    font-size: 0.875rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  .name {
+    font-size: clamp(2.25rem, 1.6rem + 3vw, 3.5rem);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    margin-top: 4px;
+  }
+
+  .affiliation {
+    margin-top: 12px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .lead {
+    margin-top: 24px;
+    font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.25rem);
+    font-weight: 500;
+    line-height: 1.8;
+  }
+
+  @media (min-width: 640px) {
+    .hero-photo {
+      max-width: 520px;
+    }
+  }
+
+  @media (min-width: 900px) {
+    .hero {
+      padding-block: 72px 112px;
+    }
+
+    .hero-inner {
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 64px;
+    }
+
+    .hero-text {
+      order: -1;
+    }
+
+    .hero-photo :global(img),
+    .monogram {
+      aspect-ratio: 4 / 5;
+    }
+  }
+
+  /* ── About ── */
+  .about-grid {
+    display: grid;
+    gap: 40px;
+  }
+
+  .motto {
+    margin: 0 0 32px;
+    padding-left: 18px;
+    border-left: 3px solid var(--accent);
+    font-size: 1.125rem;
+    font-weight: 600;
+    line-height: 1.7;
+  }
+
+  .about-facts dl {
+    margin: 0;
+    display: grid;
+    gap: 20px;
+    padding: 24px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: var(--surface);
+  }
+
+  .about-facts dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+  }
+
+  .about-facts dd {
+    margin: 2px 0 0;
+    line-height: 1.7;
+  }
+
+  .future {
+    margin-top: 56px;
+    max-width: var(--measure);
+  }
+
+  .future h3 {
+    font-size: 1.125rem;
+    margin-bottom: 12px;
+  }
+
+  @media (min-width: 900px) {
+    .about-grid {
+      grid-template-columns: minmax(0, 1fr) 300px;
+      gap: 64px;
+      align-items: start;
+    }
+
+    .about-facts {
+      position: sticky;
+      top: calc(var(--header-h) + 32px);
+    }
+  }
+
+  /* ── Projects ── */
+  .project-grid {
+    display: grid;
+    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  }
+
+  /* ── Skills ── */
+  .skill-list {
+    margin: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .skill-row {
+    display: grid;
+    gap: 6px;
+    padding-block: 18px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .skill-row dt {
+    font-weight: 700;
+  }
+
+  .skill-row dd {
+    margin: 0;
+  }
+
+  .skill-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2px 0;
+  }
+
+  .skill-items li:not(:last-child)::after {
+    content: '/';
+    margin-inline: 0.6em;
+    color: var(--line);
+  }
+
+  @media (min-width: 768px) {
+    .skill-row {
+      grid-template-columns: 11rem 1fr;
+      gap: 32px;
+    }
+  }
+
+  .certs {
+    margin-top: 48px;
+  }
+
+  .certs-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 12px;
+  }
+
+  .certs li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0 16px;
+    padding-block: 10px;
+    border-bottom: 1px solid var(--line);
+    max-width: var(--measure);
+  }
+
+  .cert-date {
+    font-size: 0.875rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Contact ── */
+  .email {
+    margin-top: 16px;
+    font-size: clamp(1.125rem, 1rem + 1vw, 1.5rem);
+    font-weight: 600;
+    word-break: break-all;
+  }
+</style>

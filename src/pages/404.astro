@@ -1,0 +1,24 @@
+---
+import Base from '../layouts/Base.astro';
+---
+
+<Base title="ページが見つかりません">
+  <section class="container nf">
+    <p class="eyebrow">404</p>
+    <h1>ページが見つかりません</h1>
+    <p class="muted">お探しのページは移動または削除された可能性があります。</p>
+    <p><a href="/">トップページへ戻る</a></p>
+  </section>
+</Base>
+
+<style>
+  .nf {
+    padding-block: 120px;
+    display: grid;
+    gap: 16px;
+  }
+
+  h1 {
+    font-size: 1.75rem;
+  }
+</style>

@@ -1,0 +1,181 @@
+---
+import { Image } from 'astro:assets';
+import { render } from 'astro:content';
+import Base from '../../layouts/Base.astro';
+import { formatPeriod, getProjects, hasDetail } from '../../lib';
+
+// 本文があるプロジェクトだけ、詳細ページを自動で作ります
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.filter(hasDetail).map((project) => ({
+    params: { id: project.id },
+    props: { project },
+  }));
+}
+
+const { project } = Astro.props;
+const d = project.data;
+const { Content } = await render(project);
+const period = formatPeriod(d.start, d.end);
+---
+
+<Base title={d.title} description={d.summary} type="article">
+  <article class="container detail">
+    <p class="back"><a href="/#projects">← 研究・活動実績の一覧へ</a></p>
+
+    <header class="head fade-in">
+      {d.category && <p class="eyebrow">{d.category}</p>}
+      <h1 class="title">{d.title}</h1>
+      {d.result && <p class="result">{d.result}</p>}
+      {d.summary && <p class="summary">{d.summary}</p>}
+    </header>
+
+    {
+      d.cover && (
+        <Image
+          class="cover"
+          src={d.cover}
+          alt={d.coverAlt ?? ''}
+          widths={[640, 1040, 1600]}
+          sizes="(min-width: 1040px) 960px, 100vw"
+          loading="eager"
+        />
+      )
+    }
+
+    <dl class="facts">
+      {
+        period && (
+          <div>
+            <dt>時期</dt>
+            <dd>{period}</dd>
+          </div>
+        )
+      }
+      {
+        d.role && (
+          <div>
+            <dt>役割</dt>
+            <dd>{d.role}</dd>
+          </div>
+        )
+      }
+      {
+        d.tech.length > 0 && (
+          <div>
+            <dt>技術・手法</dt>
+            <dd>{d.tech.join(' / ')}</dd>
+          </div>
+        )
+      }
+      {
+        d.links.length > 0 && (
+          <div>
+            <dt>関連資料</dt>
+            <dd>
+              <ul>
+                {d.links.map((l) => (
+                  <li>
+                    <a href={l.url}>{l.label}</a>
+                  </li>
+                ))}
+              </ul>
+            </dd>
+          </div>
+        )
+      }
+    </dl>
+
+    <div class="prose">
+      <Content />
+    </div>
+
+    <p class="back bottom"><a href="/#projects">← 研究・活動実績の一覧へ</a></p>
+  </article>
+</Base>
+
+<style>
+  .detail {
+    max-width: 840px;
+    padding-block: 32px 96px;
+  }
+
+  .back {
+    font-size: 0.875rem;
+  }
+
+  .back a {
+    color: var(--muted);
+    text-decoration: none;
+  }
+
+  .back a:hover {
+    color: var(--accent);
+  }
+
+  .bottom {
+    margin-top: 72px;
+  }
+
+  .head {
+    margin-top: 40px;
+  }
+
+  .title {
+    font-size: clamp(1.5rem, 1.2rem + 1.4vw, 2.25rem);
+    font-weight: 700;
+    line-height: 1.5;
+  }
+
+  .result {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 2px 12px;
+    border-radius: 999px;
+  }
+
+  .summary {
+    margin-top: 20px;
+    font-size: 1.0625rem;
+    color: var(--muted);
+    max-width: var(--measure);
+  }
+
+  .cover {
+    width: 100%;
+    margin-top: 40px;
+    border-radius: var(--radius);
+  }
+
+  .facts {
+    margin: 40px 0 48px;
+    border-top: 1px solid var(--line);
+  }
+
+  .facts > div {
+    display: grid;
+    gap: 2px;
+    padding-block: 14px;
+    border-bottom: 1px solid var(--line);
+  }
+
+  .facts dt {
+    font-size: 0.8125rem;
+    color: var(--muted);
+  }
+
+  .facts dd {
+    margin: 0;
+  }
+
+  @media (min-width: 640px) {
+    .facts > div {
+      grid-template-columns: 8rem 1fr;
+      gap: 24px;
+    }
+  }
+</style>

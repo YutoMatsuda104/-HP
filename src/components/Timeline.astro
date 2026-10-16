@@ -1,0 +1,137 @@
+---
+interface Item {
+  period?: string;
+  organization: string;
+  title?: string;
+  description?: string;
+}
+interface Props {
+  heading: string;
+  items: Item[];
+}
+const { heading, items } = Astro.props;
+---
+
+<div class="timeline-group">
+  <h3 class="group-title">{heading}</h3>
+  <ol class="timeline">
+    {
+      items.map((item) => (
+        <li class="item reveal">
+          <p class="period">{item.period}</p>
+          <div class="body">
+            <p class="org">{item.organization}</p>
+            {item.title && <p class="role">{item.title}</p>}
+            {item.description && <p class="desc">{item.description}</p>}
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+</div>
+
+<style>
+  .timeline-group + :global(.timeline-group) {
+    margin-top: 56px;
+  }
+
+  .group-title {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--muted);
+    letter-spacing: 0.08em;
+    margin-bottom: 20px;
+  }
+
+  .timeline {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-left: 1px solid var(--line);
+  }
+
+  .item {
+    position: relative;
+    padding: 0 0 32px 24px;
+  }
+
+  .item:last-child {
+    padding-bottom: 4px;
+  }
+
+  .item::before {
+    content: '';
+    position: absolute;
+    left: -4px;
+    top: 0.75em;
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 1.5px solid var(--accent);
+  }
+
+  .period {
+    font-size: 0.8125rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.04em;
+  }
+
+  .org {
+    font-weight: 700;
+    font-size: 1.0625rem;
+    line-height: 1.6;
+  }
+
+  .role {
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .desc {
+    margin-top: 8px;
+    color: var(--muted);
+    font-size: 0.9375rem;
+    max-width: var(--measure);
+  }
+
+  @media (min-width: 768px) {
+    .timeline {
+      border-left: 0;
+    }
+
+    .item {
+      display: grid;
+      grid-template-columns: 11rem 1fr;
+      gap: 32px;
+      padding: 0 0 36px;
+    }
+
+    .item::before {
+      display: none;
+    }
+
+    .period {
+      padding-top: 0.2em;
+    }
+
+    .body {
+      position: relative;
+      padding-left: 28px;
+      border-left: 1px solid var(--line);
+    }
+
+    .body::before {
+      content: '';
+      position: absolute;
+      left: -4px;
+      top: 0.7em;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--bg);
+      border: 1.5px solid var(--accent);
+    }
+  }
+</style>

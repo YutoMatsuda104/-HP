@@ -1,0 +1,255 @@
+/* ─────────────────────────────────────────────
+   サイト全体のデザイン
+   色や文字サイズは :root の変数をまとめて変えられます。
+   ───────────────────────────────────────────── */
+
+:root {
+  --bg: #fbfbf9;
+  --surface: #ffffff;
+  --text: #1b1c1e;
+  --muted: #5d6167;
+  --line: #e4e4e0;
+  --accent: #1d4f91;
+  --accent-soft: #eaf0f8;
+
+  --font-sans: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Hiragino Kaku Gothic ProN",
+    "Noto Sans JP", "Yu Gothic UI", "Yu Gothic", Meiryo, system-ui, sans-serif;
+
+  --header-h: 56px;
+  --container: 1040px;
+  --measure: 40rem;
+  --radius: 14px;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #111214;
+    --surface: #17191c;
+    --text: #ececea;
+    --muted: #a3a7ad;
+    --line: #2b2e33;
+    --accent: #8db3f2;
+    --accent-soft: #1b2535;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.9;
+  letter-spacing: 0.02em;
+  font-feature-settings: "palt" 0;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (min-width: 768px) {
+  body {
+    font-size: 1.0625rem;
+  }
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.4;
+  letter-spacing: 0.03em;
+  font-feature-settings: "palt" 1;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  text-wrap: pretty;
+}
+
+/* 見出しなど短い文は、日本語の文節で改行する(対応ブラウザのみ) */
+h1,
+h2,
+h3,
+.lead {
+  word-break: auto-phrase;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--accent);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin-inline: auto;
+  padding-inline: 20px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding-inline: 40px;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 100;
+  padding: 8px 14px;
+  background: var(--text);
+  color: var(--bg);
+  border-radius: 8px;
+}
+
+.skip-link:focus {
+  top: 12px;
+}
+
+/* ── セクション共通 ── */
+
+.section {
+  padding-block: 72px;
+  border-top: 1px solid var(--line);
+  scroll-margin-top: var(--header-h);
+}
+
+@media (min-width: 768px) {
+  .section {
+    padding-block: 104px;
+  }
+}
+
+.section-head {
+  margin-bottom: 40px;
+}
+
+.eyebrow {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 6px;
+}
+
+.section-title {
+  font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  font-weight: 700;
+}
+
+.muted {
+  color: var(--muted);
+}
+
+/* ── 本文(Markdown) ── */
+
+.prose {
+  max-width: var(--measure);
+}
+
+.prose > * + * {
+  margin-top: 1.25em;
+}
+
+.prose h2 {
+  font-size: 1.25rem;
+  margin-top: 2.4em;
+}
+
+.prose h3 {
+  font-size: 1.0625rem;
+  margin-top: 2em;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.4em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose li + li {
+  margin-top: 0.4em;
+}
+
+/* ── 控えめな表示アニメーション(動きを減らす設定では無効) ── */
+
+@media (prefers-reduced-motion: no-preference) {
+  .fade-in {
+    animation: fade-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: fade-up linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 40%;
+    }
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
